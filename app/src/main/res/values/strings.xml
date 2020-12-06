@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tinderr</string>
+
+    <!-- Splash -->
+    <string name="splash_title">tinder</string>
+
 </resources>
