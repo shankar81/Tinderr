@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/authNumberFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -14,5 +14,13 @@
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.tinderr.AuthFragment"
-        android:label="AuthFragment" />
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_authNumberFragment"
+            app:destination="@id/authNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authNumberFragment"
+        android:name="com.example.tinderr.AuthNumberFragment"
+        android:label="AuthNumberFragment" />
 </navigation>

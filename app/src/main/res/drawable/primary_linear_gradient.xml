@@ -5,5 +5,4 @@
         android:centerColor="@color/pink_500"
         android:endColor="@color/pink_200"
         android:startColor="@color/pink_700" />
-
 </shape>
