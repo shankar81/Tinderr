@@ -40,6 +40,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/policyText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -70,23 +71,23 @@
         android:layout_marginBottom="16dp"
         android:drawableStart="@drawable/ic_facebook"
         android:text="@string/auth_button_facebook"
-        app:layout_constraintBottom_toTopOf="@+id/appCompatButton2"
+        app:layout_constraintBottom_toTopOf="@+id/numberButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/numberButton"
         style="@style/Theme.RoundedButton"
         android:layout_marginBottom="24dp"
         android:drawableStart="@drawable/ic_speech_bubble"
         android:text="@string/auth_button_number"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/recoveryButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/recoveryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/auth_trouble"

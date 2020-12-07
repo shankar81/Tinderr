@@ -30,6 +30,7 @@
     <style name="Theme.RoundedButtonGradient" parent="Theme.RoundedButton">
         <item name="android:paddingVertical" tools:targetApi="o">10dp</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/rounded_button_gradient</item>
         <item name="android:textColor">#ccc</item>
     </style>

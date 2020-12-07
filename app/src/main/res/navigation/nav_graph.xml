@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/authNumberFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -18,9 +19,33 @@
         <action
             android:id="@+id/action_authFragment_to_authNumberFragment"
             app:destination="@id/authNumberFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_accountRecoveryFragment"
+            app:destination="@id/accountRecoveryFragment" />
     </fragment>
     <fragment
         android:id="@+id/authNumberFragment"
         android:name="com.example.tinderr.AuthNumberFragment"
-        android:label="AuthNumberFragment" />
+        android:label="AuthNumberFragment" >
+        <action
+            android:id="@+id/action_authNumberFragment_to_numberExtListFragment"
+            app:destination="@id/numberExtListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/numberExtListFragment"
+        android:name="com.example.tinderr.NumberExtListFragment"
+        android:label="NumberExtListFragment" />
+    <fragment
+        android:id="@+id/accountRecoveryFragment"
+        android:name="com.example.tinderr.AccountRecoveryFragment"
+        android:label="AccountRecoveryFragment"
+        app:startDestination="@id/action_accountRecoveryFragment_to_authEmail">
+        <action
+            android:id="@+id/action_accountRecoveryFragment_to_authEmail"
+            app:destination="@id/authEmail" />
+    </fragment>
+    <fragment
+        android:id="@+id/authEmail"
+        android:name="com.example.tinderr.AuthEmail"
+        android:label="AuthEmail" />
 </navigation>

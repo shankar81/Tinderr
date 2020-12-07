@@ -6,7 +6,7 @@
     <string name="splash_title">tinder</string>
 
     <!-- Auth -->
-    <string name="auth_policy">By clicking "Log in", you agree with out <a href="">Terms</a>.\nLearn how we process your data in our <a href="">Privacy Policy and Cookies Policy.</a></string>
+    <string name="auth_policy">By clicking "Log in", you agree with out <a href="https://www.google.com/">Terms</a>.\nLearn how we process your data in our <a href="https://www.google.com/">Privacy Policy and Cookies Policy.</a></string>
     <string name="auth_button_number">log in with phone number</string>
     <string name="auth_button_google">log in with google</string>
     <string name="auth_button_facebook">log in with facebook</string>
@@ -19,4 +19,17 @@
     <string name="auth_number_button">Continue</string>
     <string name="auth_number_ext">IN +91</string>
 
+    <!-- Search Ext Number -->
+    <string name="ext_search">Search</string>
+
+    <!-- Account Recovery -->
+    <string name="account_recovery_title">Account recovery</string>
+    <string name="account_recovery_info">Changed your phone number or lost access to your Facebook account? We can help you login with your email.</string>
+    <string name="account_recovery_button">log in with email</string>
+
+    <!-- Auth Email -->
+    <string name="auth_email_title">Log in by email</string>
+    <string name="auth_email_hint">Your email is</string>
+    <string name="auth_email_note">We\'ll email you a link that will instantly log you in</string>
+    <string name="auth_email_button">send email</string>
 </resources>
