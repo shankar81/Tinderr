@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tinderr</string>
     <string name="back">Back Button</string>
+    <string name="continue_button">Continue</string>
 
     <!-- Splash -->
     <string name="splash_title">tinder</string>
@@ -16,7 +17,6 @@
     <string name="auth_number_title">My number is</string>
     <string name="auth_number_placeholder">Phone Number</string>
     <string name="auth_number_hint">When you tap "Continue", Tinder will send a text with verification code. Message and data rates may apply.\nThe verified phone number can be used to log in. <a href="">Learn what happens when your number changes.</a></string>
-    <string name="auth_number_button">Continue</string>
     <string name="auth_number_ext">IN +91</string>
 
     <!-- Search Ext Number -->
@@ -32,4 +32,16 @@
     <string name="auth_email_hint">Your email is</string>
     <string name="auth_email_note">We\'ll email you a link that will instantly log you in</string>
     <string name="auth_email_button">send email</string>
+
+    <!-- Check Email -->
+    <string name="check_email_title">Check your email!</string>
+    <string name="check_email_note">If we found an account with <b>vijusawant81@gmail.com</b>, an email has been sent. Please check you email in a moment.</string>
+    <string name="check_email_not_received">Didn\'t receive a link?</string>
+    <string name="check_email_change_email">use a different email</string>
+    <string name="check_email_use_phone">use your phone number</string>
+
+    <!-- Check Email -->
+    <string name="otp_title">My code is</string>
+    <string name="otp_number">9699895355</string>
+    <string name="otp_resend">Resend</string>
 </resources>

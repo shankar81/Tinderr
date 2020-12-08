@@ -34,4 +34,22 @@
         <item name="android:background">@drawable/rounded_button_gradient</item>
         <item name="android:textColor">#ccc</item>
     </style>
+
+    <style name="Theme.OtpInput" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#555</item>
+        <item name="android:foregroundTint" tools:ignore="NewApi">@color/pink_700</item>
+        <item name="android:background">@drawable/border_bottom</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.1</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textCursorDrawable">@drawable/icon_cursor</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
 </resources>

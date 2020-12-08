@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/otpFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_authNumberFragment_to_numberExtListFragment"
             app:destination="@id/numberExtListFragment" />
+        <action
+            android:id="@+id/action_authNumberFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
     </fragment>
     <fragment
         android:id="@+id/numberExtListFragment"
@@ -47,5 +50,25 @@
     <fragment
         android:id="@+id/authEmail"
         android:name="com.example.tinderr.AuthEmail"
-        android:label="AuthEmail" />
+        android:label="AuthEmail" >
+        <action
+            android:id="@+id/action_authEmail_to_checkEmailFragment"
+            app:destination="@id/checkEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkEmailFragment"
+        android:name="com.example.tinderr.CheckEmailFragment"
+        android:label="CheckEmailFragment"
+        app:startDestination="@id/action_checkEmailFragment_to_authEmail">
+        <action
+            android:id="@+id/action_checkEmailFragment_to_authEmail"
+            app:destination="@id/authEmail" />
+        <action
+            android:id="@+id/action_checkEmailFragment_to_authNumberFragment"
+            app:destination="@id/authNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.example.tinderr.OtpFragment"
+        android:label="OtpFragment" />
 </navigation>
