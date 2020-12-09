@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:padding="20dp">
 
-    <include
-        layout="@layout/back_button"/>
+    <include layout="@layout/back_button" />
 
     <TextView
         android:id="@+id/textView3"
@@ -20,10 +19,10 @@
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <EditText
-        android:id="@+id/numberDropdown"
+        android:id="@+id/extDropdown"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,7 +33,7 @@
         android:drawablePadding="10dp"
         android:focusable="false"
         android:hint="@string/auth_number_ext"
-        android:inputType="number"
+        android:inputType="text"
         android:paddingStart="5dp"
         android:text="@string/auth_number_ext"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,9 +54,9 @@
         android:maxLength="10"
         android:paddingStart="5dp"
         android:textCursorDrawable="@drawable/icon_cursor"
-        app:layout_constraintBottom_toBottomOf="@+id/numberDropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/extDropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberDropdown"
+        app:layout_constraintStart_toEndOf="@+id/extDropdown"
         tools:ignore="RtlSymmetry"
         tools:targetApi="lollipop" />
 
@@ -72,10 +71,10 @@
         android:textColorLink="#333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberDropdown" />
+        app:layout_constraintTop_toBottomOf="@+id/extDropdown" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/button"
         style="@style/Theme.RoundedButtonGradient"
         android:layout_marginTop="24dp"
         android:enabled="false"

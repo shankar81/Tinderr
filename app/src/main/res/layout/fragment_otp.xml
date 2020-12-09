@@ -18,15 +18,14 @@
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="@string/otp_number"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -40,7 +39,7 @@
         android:textAllCaps="true"
         android:textColor="#aaa"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/phoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <LinearLayout
@@ -53,47 +52,47 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber">
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/otp1"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/otp2"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/otp3"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/otp4"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/otp5"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/otp6"
             style="@style/Theme.OtpInput"
             android:autofillHints="@null"
             android:hint="@null" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/button"
         style="@style/Theme.RoundedButtonGradient"
         android:layout_marginTop="75dp"
         android:enabled="false"

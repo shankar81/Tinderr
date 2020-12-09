@@ -1,5 +1,8 @@
 package com.example.tinderr
 
+import android.graphics.Color
+import android.util.Patterns
+import android.widget.Button
 import com.example.tinderr.models.CountryCode
 
 object Utils {
@@ -9,10 +12,10 @@ object Utils {
             CountryCode("Afghanistan", "+93", "AF"),
             CountryCode("Albania", "+355", "AL"),
             CountryCode("Algeria", "+213", "DZ"),
-            CountryCode("AmericanSamoa", "dial_co 1 684", "AS"),
+            CountryCode("AmericanSamoa", "1 684", "AS"),
             CountryCode("Andorra", "+376", "AD"),
             CountryCode("Angola", "+244", "AO"),
-            CountryCode("Anguilla", "dial_co 1 264", "AI"),
+            CountryCode("Anguilla", "1 264", "AI"),
             CountryCode("Antigua and Barbuda", "+1268", "AG"),
             CountryCode("Argentina", "+54", "AR"),
             CountryCode("Armenia", "+374", "AM"),
@@ -20,15 +23,15 @@ object Utils {
             CountryCode("Australia", "+61", "AU"),
             CountryCode("Austria", "+43", "AT"),
             CountryCode("Azerbaijan", "+994", "AZ"),
-            CountryCode("Bahamas", "dial_co 1 242", "BS"),
+            CountryCode("Bahamas", "1 242", "BS"),
             CountryCode("Bahrain", "+973", "BH"),
             CountryCode("Bangladesh", "+880", "BD"),
-            CountryCode("Barbados", "dial_co 1 246", "BB"),
+            CountryCode("Barbados", "1 246", "BB"),
             CountryCode("Belarus", "+375", "BY"),
             CountryCode("Belgium", "+32", "BE"),
             CountryCode("Belize", "+501", "BZ"),
             CountryCode("Benin", "+229", "BJ"),
-            CountryCode("Bermuda", "dial_co 1 441", "BM"),
+            CountryCode("Bermuda", "1 441", "BM"),
             CountryCode("Bhutan", "+975", "BT"),
             CountryCode("Bosnia and Herzegovina", "+387", "BA"),
             CountryCode("Botswana", "+267", "BW"),
@@ -57,8 +60,8 @@ object Utils {
             CountryCode("Czech Republic", "+420", "CZ"),
             CountryCode("Denmark", "+45", "DK"),
             CountryCode("Djibouti", "+253", "DJ"),
-            CountryCode("Dominica", "dial_co 1 767", "DM"),
-            CountryCode("Dominican Republic", "dial_co 1 849", "DO"),
+            CountryCode("Dominica", "1 767", "DM"),
+            CountryCode("Dominican Republic", "1 849", "DO"),
             CountryCode("Ecuador", "+593", "EC"),
             CountryCode("Egypt", "+20", "EG"),
             CountryCode("El Salvador", "+503", "SV"),
@@ -80,9 +83,9 @@ object Utils {
             CountryCode("Gibraltar", "+350", "GI"),
             CountryCode("Greece", "+30", "GR"),
             CountryCode("Greenland", "+299", "GL"),
-            CountryCode("Grenada", "dial_co 1 473", "GD"),
+            CountryCode("Grenada", "1 473", "GD"),
             CountryCode("Guadeloupe", "+590", "GP"),
-            CountryCode("Guam", "dial_co 1 671", "GU"),
+            CountryCode("Guam", "1 671", "GU"),
             CountryCode("Guatemala", "+502", "GT"),
             CountryCode("Guinea", "+224", "GN"),
             CountryCode("Guinea-Bissau", "+245", "GW"),
@@ -97,10 +100,10 @@ object Utils {
             CountryCode("Ireland", "+353", "IE"),
             CountryCode("Israel", "+972", "IL"),
             CountryCode("Italy", "+39", "IT"),
-            CountryCode("Jamaica", "dial_co 1 876", "JM"),
+            CountryCode("Jamaica", "1 876", "JM"),
             CountryCode("Japan", "+81", "JP"),
             CountryCode("Jordan", "+962", "JO"),
-            CountryCode("Kazakhstan", "dial_co 7 7", "KZ"),
+            CountryCode("Kazakhstan", "7 7", "KZ"),
             CountryCode("Kenya", "+254", "KE"),
             CountryCode("Kiribati", "+686", "KI"),
             CountryCode("Kuwait", "+965", "KW"),
@@ -142,7 +145,7 @@ object Utils {
             CountryCode("Nigeria", "+234", "NG"),
             CountryCode("Niue", "+683", "NU"),
             CountryCode("Norfolk Island", "+672", "NF"),
-            CountryCode("Northern Mariana Islands", "dial_co 1 670", "MP"),
+            CountryCode("Northern Mariana Islands", "1 670", "MP"),
             CountryCode("Norway", "+47", "NO"),
             CountryCode("Oman", "+968", "OM"),
             CountryCode("Pakistan", "+92", "PK"),
@@ -154,7 +157,7 @@ object Utils {
             CountryCode("Philippines", "+63", "PH"),
             CountryCode("Poland", "+48", "PL"),
             CountryCode("Portugal", "+351", "PT"),
-            CountryCode("Puerto Rico", "dial_co 1 939", "PR"),
+            CountryCode("Puerto Rico", "1 939", "PR"),
             CountryCode("Qatar", "+974", "QA"),
             CountryCode("Romania", "+40", "RO"),
             CountryCode("Rwanda", "+250", "RW"),
@@ -182,11 +185,11 @@ object Utils {
             CountryCode("Togo", "+228", "TG"),
             CountryCode("Tokelau", "+690", "TK"),
             CountryCode("Tonga", "+676", "TO"),
-            CountryCode("Trinidad and Tobago", "dial_co 1 868", "TT"),
+            CountryCode("Trinidad and Tobago", "1 868", "TT"),
             CountryCode("Tunisia", "+216", "TN"),
             CountryCode("Turkey", "+90", "TR"),
             CountryCode("Turkmenistan", "+993", "TM"),
-            CountryCode("Turks and Caicos Islands", "dial_co 1 649", "TC"),
+            CountryCode("Turks and Caicos Islands", "1 649", "TC"),
             CountryCode("Tuvalu", "+688", "TV"),
             CountryCode("Uganda", "+256", "UG"),
             CountryCode("Ukraine", "+380", "UA"),
@@ -220,8 +223,8 @@ object Utils {
             CountryCode("Réunion", "+262", "RE"),
             CountryCode("Russia", "+7", "RU"),
             CountryCode("Saint Barthélemy", "+590", "BL"),
-            CountryCode("Saint Kitts and Nevis", "dial_co 1 869", "KN"),
-            CountryCode("Saint Lucia", "dial_co 1 758", "LC"),
+            CountryCode("Saint Kitts and Nevis", "1 869", "KN"),
+            CountryCode("Saint Lucia", "1 758", "LC"),
             CountryCode("Saint Martin", "+590", "MF"),
             CountryCode("Saint Pierre and Miquelon", "+508", "PM"),
             CountryCode("Sao Tome and Principe", "+239", "ST"),
@@ -232,9 +235,9 @@ object Utils {
             CountryCode("Tanzania, United Republic of", "+255", "TZ"),
             CountryCode("Timor-Leste", "+670", "TL"),
             CountryCode("Viet Nam", "+84", "VN"),
-            CountryCode("Virgin Islands, British", "dial_co 1 284", "VG"),
+            CountryCode("Virgin Islands, British", "1 284", "VG"),
             CountryCode(
-                "Virgin Islands, U.S.", "dial_co 1 340", "VI"
+                "Virgin Islands, U.S.", "1 340", "VI"
             ),
             CountryCode(
                 "British Indian Ocean Territory",
@@ -302,5 +305,22 @@ object Utils {
                 "VE"
             ),
         )
+    }
+
+    // Update button style based on user actions
+    fun Button.updateButton(enabled: Boolean) {
+        isEnabled = enabled
+        if (enabled) {
+            setTextColor(Color.WHITE)
+        } else {
+            setTextColor(Color.parseColor("#cccccc"))
+        }
+    }
+
+    fun isEmailValid(s: String?): Boolean {
+        if (!s.isNullOrBlank()) {
+            return Patterns.EMAIL_ADDRESS.matcher(s).matches()
+        }
+        return false
     }
 }

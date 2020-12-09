@@ -7,11 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tinderr.models.CountryCode
@@ -22,9 +21,11 @@ class NumberExtListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: EditText
+    private lateinit var backButton: ImageView
     private val numberExtList = Utils.getCountryCodes()
     private val numberExtListFiltered = Utils.getCountryCodes()
     private var adapter = ExtAdapter(numberExtListFiltered)
+    val args: NumberExtListFragmentArgs by navArgs()
 
     val listFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -65,6 +66,7 @@ class NumberExtListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_number_ext_list, container, false)
 
+        backButton = view.findViewById(R.id.backButton)
         recyclerView = view.findViewById(R.id.recyclerView)
         searchView = view.findViewById(R.id.searchView)
         recyclerView.layoutManager =
@@ -83,6 +85,10 @@ class NumberExtListFragment : Fragment() {
                 listFilter.filter(s)
             }
         })
+
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private inner class ExtHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -91,6 +97,10 @@ class NumberExtListFragment : Fragment() {
         private val number: TextView = itemView.findViewById(R.id.number)
 
         fun bind(code: CountryCode) {
+            itemView.setOnClickListener {
+                args.callback?.onSelectExt(code)
+                findNavController().navigateUp()
+            }
             name.text = code.name
             number.text = code.dialCode
         }
@@ -110,5 +120,4 @@ class NumberExtListFragment : Fragment() {
 
         override fun getFilter() = listFilter
     }
-
 }

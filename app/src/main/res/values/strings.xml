@@ -44,4 +44,12 @@
     <string name="otp_title">My code is</string>
     <string name="otp_number">9699895355</string>
     <string name="otp_resend">Resend</string>
+
+    <!-- Access Location -->
+    <string name="location_title">Enable location</string>
+    <string name="location_desc">You\'ll need to enable your location in order to user Tinderr</string>
+    <string name="location_button">allow location</string>
+    <string name="location_more">Tell me more</string>
+    <string name="location_title_more">Meet people nearby</string>
+    <string name="location_desc_more">Your location will be used to show potential matches near you</string>
 </resources>

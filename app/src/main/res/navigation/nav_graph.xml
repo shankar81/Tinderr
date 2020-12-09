@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/otpFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -37,7 +37,13 @@
     <fragment
         android:id="@+id/numberExtListFragment"
         android:name="com.example.tinderr.NumberExtListFragment"
-        android:label="NumberExtListFragment" />
+        android:label="NumberExtListFragment" >
+        <argument
+            android:name="callback"
+            app:argType="com.example.tinderr.Callbacks"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/accountRecoveryFragment"
         android:name="com.example.tinderr.AccountRecoveryFragment"
@@ -70,5 +76,18 @@
     <fragment
         android:id="@+id/otpFragment"
         android:name="com.example.tinderr.OtpFragment"
-        android:label="OtpFragment" />
+        android:label="OtpFragment" >
+        <argument
+            android:name="number"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="4564564566" />
+        <action
+            android:id="@+id/action_otpFragment_to_accessLocationFragment"
+            app:destination="@id/accessLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accessLocationFragment"
+        android:name="com.example.tinderr.AccessLocationFragment"
+        android:label="AccessLocationFragment" />
 </navigation>

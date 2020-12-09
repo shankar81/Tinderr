@@ -20,7 +20,7 @@
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <EditText
         android:id="@+id/editText"
@@ -35,7 +35,6 @@
         android:inputType="textEmailAddress"
         android:paddingStart="5dp"
         android:textCursorDrawable="@drawable/icon_cursor"
-        app:layout_constraintBottom_toBottomOf="@+id/numberDropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/authEmailTitle"
@@ -53,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/button"
         style="@style/Theme.RoundedButtonGradient"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
