@@ -52,4 +52,30 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="Theme.ProfileTextButton" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">#bbb</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Theme.ProfileRoundButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">13dp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="Theme.ProfileRoundButtonPrimary" parent="Theme.ProfileRoundButton">
+        <item name="android:background">@drawable/primary_circle</item>
+    </style>
+
+    <style name="Theme.ProfileRoundButtonSecondary" parent="Theme.ProfileRoundButton">
+        <item name="android:background">@drawable/light_gray_circle</item>
+    </style>
 </resources>

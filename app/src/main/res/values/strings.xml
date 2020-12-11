@@ -52,4 +52,14 @@
     <string name="location_more">Tell me more</string>
     <string name="location_title_more">Meet people nearby</string>
     <string name="location_desc_more">Your location will be used to show potential matches near you</string>
+
+    <!-- Profile -->
+    <string name="profile_image">Profile Photo</string>
+    <string name="profile_name">Viju, 21</string>
+    <string name="profile_settings">settings</string>
+    <string name="profile_media">add media</string>
+    <string name="profile_edit">edit info</string>
+    <string name="profile_tip">Photo tip: try to keep your tongue in the mouth</string>
+    <string name="profile_carousel">Profile Carousel</string>
+
 </resources>
