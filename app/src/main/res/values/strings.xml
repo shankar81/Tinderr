@@ -62,4 +62,21 @@
     <string name="profile_tip">Photo tip: try to keep your tongue in the mouth</string>
     <string name="profile_carousel">Profile Carousel</string>
 
+    <!-- Profile -->
+    <string name="media_title">Create new</string>
+    <string name="media_subtitle">Select a content type</string>
+    <string name="media_gallery">Gallery</string>
+    <string name="media_upload">Upload from</string>
+    <string name="media_prompt">Prompt</string>
+    <string name="media_create">Create a new</string>
+    <string name="media_camera">Camera</string>
+    <string name="media_capture">Capture from</string>
+
+    <!-- Chats -->
+    <string name="chats_message">Messages</string>
+    <string name="chats_feed">Feed</string>
+    <string name="chats_search">Search 0 matches</string>
+    <string name="chats_new_matches">New matches</string>
+    <string name="chats_feed_empty_title">Check back later</string>
+    <string name="chats_feed_empty_subtitle">We couldn\'t find any social activity for matches. Try again later</string>
 </resources>

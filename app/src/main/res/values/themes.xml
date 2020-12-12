@@ -78,4 +78,16 @@
     <style name="Theme.ProfileRoundButtonSecondary" parent="Theme.ProfileRoundButton">
         <item name="android:background">@drawable/light_gray_circle</item>
     </style>
+
+    <style name="Theme.ChatsHeading" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/pink_500</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.1</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

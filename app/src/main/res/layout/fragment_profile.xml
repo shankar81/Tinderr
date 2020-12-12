@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/mediaButton"
         style="@style/Theme.ProfileRoundButtonPrimary"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/profile_media"
@@ -62,8 +62,8 @@
         android:elevation="4dp"
         android:padding="5dp"
         android:src="@drawable/icon_add"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/mediaButton"
+        app:layout_constraintTop_toTopOf="@+id/mediaButton"
         tools:targetApi="lollipop" />
 
     <TextView
@@ -72,7 +72,7 @@
         android:text="@string/profile_media"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/mediaButton" />
 
     <ImageView
         android:id="@+id/settings"
@@ -81,7 +81,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/profile_settings"
         android:src="@drawable/icon_settings"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/mediaButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -100,7 +100,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/profile_edit"
         android:src="@drawable/icon_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/mediaButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView

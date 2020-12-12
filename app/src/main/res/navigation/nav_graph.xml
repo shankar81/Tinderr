@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/chatsFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -93,5 +93,17 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.tinderr.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_createMediaFragment"
+            app:destination="@id/createMediaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createMediaFragment"
+        android:name="com.example.tinderr.CreateMediaFragment"
+        android:label="CreateMediaFragment" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.tinderr.ChatsFragment"
+        android:label="ChatsFragment" />
 </navigation>
