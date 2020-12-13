@@ -1,22 +1,21 @@
 package com.example.tinderr
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 class ChatsFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var messageRecyclerView: RecyclerView
-    private val adapter = MatchAdapter()
-    private val messagesAdapter = MessageAdapter()
+    private lateinit var messageTab: TextView
+    private lateinit var feedTab: TextView
+    private var fragment: Fragment? = null
+    private val messageFragment = MessagesFragment()
+    private val feedFragment = FeedFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,47 +24,43 @@ class ChatsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_chats, container, false)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = adapter
-
-        messageRecyclerView = view.findViewById(R.id.messageRecyclerView)
-        messageRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        messageRecyclerView.adapter = messagesAdapter
+        messageTab = view.findViewById(R.id.messageTab)
+        feedTab = view.findViewById(R.id.feedTab)
 
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-    }
 
-    private inner class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    private inner class MatchAdapter : RecyclerView.Adapter<MatchViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-            return MatchViewHolder(layoutInflater.inflate(R.layout.match_list_item, parent, false))
+        fragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)
+
+        if (fragment == null) {
+            replaceFragment(messageFragment)
         }
 
-        override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {}
-        override fun getItemCount() = 10
-    }
-
-    private inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    private inner class MessageAdapter : RecyclerView.Adapter<MessageViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-            return MessageViewHolder(
-                layoutInflater.inflate(
-                    R.layout.message_list_item,
-                    parent,
-                    false
-                )
-            )
+        messageTab.setOnClickListener {
+            val color = ResourcesCompat.getColor(resources, R.color.pink_700, null)
+            messageTab.setTextColor(color)
+            feedTab.setTextColor(Color.parseColor("#AAAAAA"))
+            replaceFragment(messageFragment)
         }
 
-        override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {}
-        override fun getItemCount() = 1
+        feedTab.setOnClickListener {
+            val color = ResourcesCompat.getColor(resources, R.color.pink_700, null)
+            feedTab.setTextColor(color)
+            messageTab.setTextColor(Color.parseColor("#AAAAAA"))
+            replaceFragment(feedFragment)
+        }
+    }
+
+    // Used inline and reified to use <T> at runtime
+    private fun replaceFragment(fg: Fragment) {
+        fragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)
+        if (fragment != fg) {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fg)
+                .commit()
+        }
     }
 }

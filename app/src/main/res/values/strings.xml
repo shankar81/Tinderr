@@ -79,4 +79,12 @@
     <string name="chats_new_matches">New matches</string>
     <string name="chats_feed_empty_title">Check back later</string>
     <string name="chats_feed_empty_subtitle">We couldn\'t find any social activity for matches. Try again later</string>
+
+    <!-- Like -->
+    <string name="like_my_likes_tab">0 likes</string>
+    <string name="like_sent_tab">Like Send</string>
+    <string name="like_top_picks_tab">Top Picks</string>
+    <string name="like_my_likes_empty_title">See people who liked you with Tinder Gold</string>
+    <string name="like_my_likes_button">see who likes you</string>
+
 </resources>

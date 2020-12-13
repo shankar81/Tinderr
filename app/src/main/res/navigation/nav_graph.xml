@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chatsFragment">
+    app:startDestination="@id/likeFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -106,4 +106,8 @@
         android:id="@+id/chatsFragment"
         android:name="com.example.tinderr.ChatsFragment"
         android:label="ChatsFragment" />
+    <fragment
+        android:id="@+id/likeFragment"
+        android:name="com.example.tinderr.LikeFragment"
+        android:label="LikeFragment" />
 </navigation>

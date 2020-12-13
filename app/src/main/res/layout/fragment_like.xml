@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -16,18 +15,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/messageTab"
+            android:id="@+id/myLikesTab"
             style="@style/Theme.ChatsHeading"
             android:background="@drawable/border_right"
-            android:text="@string/chats_message" />
+            android:text="@string/like_my_likes_tab"
+            android:textColor="#333" />
 
         <TextView
-            android:id="@+id/feedTab"
+            android:id="@+id/likeSentTab"
             style="@style/Theme.ChatsHeading"
             android:background="@drawable/border_left"
-            android:text="@string/chats_feed"
+            android:text="@string/like_sent_tab"
             android:textColor="#aaa" />
 
+        <TextView
+            android:id="@+id/topPicksTab"
+            style="@style/Theme.ChatsHeading"
+            android:background="@drawable/border_left"
+            android:text="@string/like_top_picks_tab"
+            android:textColor="#aaa" />
     </LinearLayout>
 
     <FrameLayout
@@ -38,4 +44,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
