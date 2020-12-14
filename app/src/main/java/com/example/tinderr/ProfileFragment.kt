@@ -1,13 +1,18 @@
 package com.example.tinderr
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+
+private const val TAG = "ProfileFragment"
 
 class ProfileFragment : Fragment() {
 
@@ -38,7 +43,7 @@ class ProfileFragment : Fragment() {
             .into(profileImage)
 
         mediaButton.setOnClickListener {
-            val action = ProfileFragmentDirections.actionProfileFragmentToCreateMediaFragment()
+            val action = DashboardFragmentDirections.actionDashboardFragmentToCreateMediaFragment2()
             findNavController().navigate(action)
         }
     }

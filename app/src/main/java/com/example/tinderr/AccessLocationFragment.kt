@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 private const val LOCATION_PERMISSION = 1
@@ -48,11 +49,14 @@ class AccessLocationFragment : Fragment() {
     }
 
     private fun askPermission(permission: String, code: Int) {
-        val p = ContextCompat.checkSelfPermission(requireContext(), permission)
-
-        if (p == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), code)
-        }
+        val action =
+            AccessLocationFragmentDirections.actionAccessLocationFragmentToDashboardFragment()
+        findNavController().navigate(action)
+//        val p = ContextCompat.checkSelfPermission(requireContext(), permission)
+//
+//        if (p == PackageManager.PERMISSION_DENIED) {
+//            ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), code)
+//        }
     }
 
     override fun onStart() {

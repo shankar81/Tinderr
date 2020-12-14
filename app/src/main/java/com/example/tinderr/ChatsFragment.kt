@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 
 class ChatsFragment : Fragment() {
 
@@ -33,7 +35,7 @@ class ChatsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        fragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)
+        fragment = childFragmentManager.findFragmentById(R.id.fragmentContainer)
 
         if (fragment == null) {
             replaceFragment(messageFragment)
@@ -56,9 +58,9 @@ class ChatsFragment : Fragment() {
 
     // Used inline and reified to use <T> at runtime
     private fun replaceFragment(fg: Fragment) {
-        fragment = parentFragmentManager.findFragmentById(R.id.fragmentContainer)
+        fragment = childFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (fragment != fg) {
-            parentFragmentManager.beginTransaction()
+            childFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fg)
                 .commit()
         }

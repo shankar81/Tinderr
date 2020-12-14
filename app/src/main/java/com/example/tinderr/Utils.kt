@@ -1,9 +1,19 @@
 package com.example.tinderr
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.util.Patterns
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.NavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.models.CountryCode
+import com.google.android.material.tabs.TabLayout
+
+private const val TAG = "Utils"
 
 object Utils {
     fun getCountryCodes(): ArrayList<CountryCode> {

@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 
 class LikeFragment : Fragment() {
 
@@ -24,7 +27,7 @@ class LikeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        parentFragmentManager.beginTransaction()
+        childFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, feedFragment)
             .commit()
     }

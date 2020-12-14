@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/likeFragment">
+    app:startDestination="@id/accessLocationFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tinderr.SplashFragment"
-        android:label="SplashFragment" >
+        android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_authFragment"
             app:destination="@id/authFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.tinderr.AuthFragment"
-        android:label="AuthFragment" >
+        android:label="AuthFragment">
         <action
             android:id="@+id/action_authFragment_to_authNumberFragment"
             app:destination="@id/authNumberFragment" />
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/authNumberFragment"
         android:name="com.example.tinderr.AuthNumberFragment"
-        android:label="AuthNumberFragment" >
+        android:label="AuthNumberFragment">
         <action
             android:id="@+id/action_authNumberFragment_to_numberExtListFragment"
             app:destination="@id/numberExtListFragment" />
@@ -37,12 +37,12 @@
     <fragment
         android:id="@+id/numberExtListFragment"
         android:name="com.example.tinderr.NumberExtListFragment"
-        android:label="NumberExtListFragment" >
+        android:label="NumberExtListFragment">
         <argument
             android:name="callback"
+            android:defaultValue="@null"
             app:argType="com.example.tinderr.Callbacks"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/accountRecoveryFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/authEmail"
         android:name="com.example.tinderr.AuthEmail"
-        android:label="AuthEmail" >
+        android:label="AuthEmail">
         <action
             android:id="@+id/action_authEmail_to_checkEmailFragment"
             app:destination="@id/checkEmailFragment" />
@@ -76,12 +76,12 @@
     <fragment
         android:id="@+id/otpFragment"
         android:name="com.example.tinderr.OtpFragment"
-        android:label="OtpFragment" >
+        android:label="OtpFragment">
         <argument
             android:name="number"
+            android:defaultValue="4564564566"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="4564564566" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_otpFragment_to_accessLocationFragment"
             app:destination="@id/accessLocationFragment" />
@@ -89,25 +89,25 @@
     <fragment
         android:id="@+id/accessLocationFragment"
         android:name="com.example.tinderr.AccessLocationFragment"
-        android:label="AccessLocationFragment" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.tinderr.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="AccessLocationFragment">
         <action
-            android:id="@+id/action_profileFragment_to_createMediaFragment"
-            app:destination="@id/createMediaFragment" />
+            android:id="@+id/action_accessLocationFragment_to_dashboardFragment"
+            app:destination="@id/navigation2" />
     </fragment>
-    <fragment
-        android:id="@+id/createMediaFragment"
-        android:name="com.example.tinderr.CreateMediaFragment"
-        android:label="CreateMediaFragment" />
-    <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.example.tinderr.ChatsFragment"
-        android:label="ChatsFragment" />
-    <fragment
-        android:id="@+id/likeFragment"
-        android:name="com.example.tinderr.LikeFragment"
-        android:label="LikeFragment" />
+    <navigation
+        android:id="@+id/navigation2"
+        app:startDestination="@id/dashboardFragment">
+        <fragment
+            android:id="@+id/dashboardFragment"
+            android:name="com.example.tinderr.DashboardFragment"
+            android:label="DashboardFragment">
+            <action
+                android:id="@+id/action_dashboardFragment_to_createMediaFragment2"
+                app:destination="@id/createMediaFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/createMediaFragment"
+            android:name="com.example.tinderr.CreateMediaFragment"
+            android:label="CreateMediaFragment" />
+    </navigation>
 </navigation>
