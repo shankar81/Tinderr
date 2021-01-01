@@ -19,7 +19,7 @@ class LoaderFragment : Fragment() {
 
         fun show() {
             binding.root.visibility = View.VISIBLE
-            binding.root.animate().alpha(1f).setDuration(1000L).start()
+            binding.root.animate().alpha(1f).setDuration(500L).start()
         }
 
         fun hide() {
@@ -28,7 +28,7 @@ class LoaderFragment : Fragment() {
                     super.onAnimationEnd(animation)
                     binding.root.visibility = View.GONE
                 }
-            }).setDuration(1000L).start()
+            }).setDuration(500L).start()
         }
 
     }

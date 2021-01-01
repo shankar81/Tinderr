@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901092800841",
+    "project_id": "tinderr-26329",
+    "storage_bucket": "tinderr-26329.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901092800841:android:246dc1be39c9c51a084298",
+        "android_client_info": {
+          "package_name": "com.example.tinderr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901092800841-llqtseiqiueg81ogbhqhr7209f4n0roc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2bzmOAx1dOQ9krzIJ_EdjB1yLv7YmC6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901092800841-llqtseiqiueg81ogbhqhr7209f4n0roc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
