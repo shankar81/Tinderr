@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">Tinderr</string>
-    <string name="back">Back Button</string>
-    <string name="continue_button">Continue</string>
+    <string name="back" translatable="false">Back Button</string>
+    <string name="continue_button" translatable="false">Continue</string>
 
     <!-- Splash -->
     <string name="splash_title">tinder</string>
 
     <!-- Auth -->
-    <string name="auth_policy">By clicking "Log in", you agree with out <a href="https://www.google.com/">Terms</a>.\nLearn how we process your data in our <a href="https://www.google.com/">Privacy Policy and Cookies Policy.</a></string>
-    <string name="auth_button_number">log in with phone number</string>
-    <string name="auth_button_google">log in with google</string>
+    <string name="auth_policy" translatable="false">By clicking "Log in", you agree with out <a href="https://www.google.com/">Terms</a>.\nLearn how we process your data in our <a href="https://www.google.com/">Privacy Policy and Cookies Policy.</a></string>
+    <string name="auth_button_number" translatable="false">log in with phone number</string>
+    <string name="auth_button_google" translatable="false">log in with google</string>
     <string name="auth_button_facebook">log in with facebook</string>
-    <string name="auth_trouble">Trouble logging in?</string>
+    <string name="auth_trouble" translatable="false">Trouble logging in?</string>
 
     <!-- Auth Number -->
-    <string name="auth_number_title">My number is</string>
+    <string name="auth_number_title" translatable="false">My number is</string>
     <string name="auth_number_placeholder">Phone Number</string>
     <string name="auth_number_hint">When you tap "Continue", Tinder will send a text with verification code. Message and data rates may apply.\nThe verified phone number can be used to log in. <a href="">Learn what happens when your number changes.</a></string>
     <string name="auth_number_ext">IN +91</string>
@@ -87,4 +87,13 @@
     <string name="like_my_likes_empty_title">See people who liked you with Tinder Gold</string>
     <string name="like_my_likes_button">see who likes you</string>
 
+    <!-- Swipe -->
+    <string name="swipe_btn_rewind">Rewind</string>
+    <string name="swipe_btn_dislike">Dislike</string>
+    <string name="swipe_btn_super_like">Like</string>
+    <string name="swipe_btn_boost">Boost</string>
+    <string name="swipe_image">Boost</string>
+    <string name="swipe_like">Like</string>
+    <string name="swipe_nope">Nope</string>
+    <string name="swipe_super">super <br /> like</string>
 </resources>

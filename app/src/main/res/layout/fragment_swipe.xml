@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/rewind"
+        style="@style/Theme.SwipeButton"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/swipe_btn_rewind"
+        android:src="@drawable/ic_baseline_refresh_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/swipeNope"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swipeNope" />
+
+    <ImageView
+        android:id="@+id/swipeNope"
+        style="@style/Theme.SwipeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/swipe_btn_rewind"
+        android:src="@drawable/icon_dislike"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/swipeSuper"
+        app:layout_constraintStart_toEndOf="@+id/rewind" />
+
+    <ImageView
+        android:id="@+id/swipeSuper"
+        style="@style/Theme.SwipeButton"
+        android:contentDescription="@string/swipe_btn_rewind"
+        android:src="@drawable/icon_star"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/swipeLike"
+        app:layout_constraintStart_toEndOf="@+id/swipeNope"
+        app:layout_constraintTop_toTopOf="@+id/swipeLike" />
+
+    <ImageView
+        android:id="@+id/swipeLike"
+        style="@style/Theme.SwipeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/swipe_btn_rewind"
+        android:src="@drawable/icon_heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/swipeSuper" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        style="@style/Theme.SwipeButton"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/swipe_btn_rewind"
+        android:src="@drawable/icon_boost"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/swipeLike"
+        app:layout_constraintTop_toTopOf="@+id/swipeLike" />
+
+    <com.yuyakaido.android.cardstackview.CardStackView
+        android:id="@+id/cardStackView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

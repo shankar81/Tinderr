@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.example.tinderr";
+option java_multiple_files = true;
+
+message UserInfo {
+  int32 id = 1;
+  string name = 2;
+  string phone = 3;
+  string token = 4;
+}

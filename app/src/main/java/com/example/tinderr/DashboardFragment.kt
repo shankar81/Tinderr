@@ -31,7 +31,6 @@ class DashboardFragment : Fragment() {
                 return
             }
 
-            Log.d(TAG, "handleOnBackPressed: ${dashboardTabs.selectedTabPosition}")
             if (dashboardTabs.selectedTabPosition != 0) {
                 dashboardViewPager.currentItem = 0
             } else {
@@ -68,6 +67,8 @@ class DashboardFragment : Fragment() {
 
         dashboardTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                Log.d(TAG, "onTabSelected: ${tab?.position}")
+                dashboardViewPager.isUserInputEnabled = tab?.position != 0
                 tab?.icon?.setColorFilter(
                     ResourcesCompat.getColor(resources, R.color.pink_700, null),
                     PorterDuff.Mode.SRC_IN
@@ -105,7 +106,7 @@ class DashboardFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> ProfileFragment()
+                0 -> SwipeFragment()
                 1 -> LikeFragment()
                 2 -> ChatsFragment()
                 3 -> ProfileFragment()

@@ -2,64 +2,92 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/accessLocationFragment">
+    app:startDestination="@id/sampleFragment">
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.tinderr.SplashFragment"
+        android:name="com.example.tinderr.auth.SplashFragment"
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_authFragment"
-            app:destination="@id/authFragment" />
+            app:destination="@id/authFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.tinderr.AuthFragment"
+        android:name="com.example.tinderr.auth.AuthFragment"
         android:label="AuthFragment">
         <action
             android:id="@+id/action_authFragment_to_authNumberFragment"
-            app:destination="@id/authNumberFragment" />
+            app:destination="@id/authNumberFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
         <action
             android:id="@+id/action_authFragment_to_accountRecoveryFragment"
-            app:destination="@id/accountRecoveryFragment" />
+            app:destination="@id/accountRecoveryFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/authNumberFragment"
-        android:name="com.example.tinderr.AuthNumberFragment"
+        android:name="com.example.tinderr.auth.AuthNumberFragment"
         android:label="AuthNumberFragment">
         <action
             android:id="@+id/action_authNumberFragment_to_numberExtListFragment"
-            app:destination="@id/numberExtListFragment" />
+            app:destination="@id/numberExtListFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
         <action
             android:id="@+id/action_authNumberFragment_to_otpFragment"
-            app:destination="@id/otpFragment" />
+            app:destination="@id/otpFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/numberExtListFragment"
-        android:name="com.example.tinderr.NumberExtListFragment"
+        android:name="com.example.tinderr.auth.NumberExtListFragment"
         android:label="NumberExtListFragment">
         <argument
             android:name="callback"
-            android:defaultValue="@null"
-            app:argType="com.example.tinderr.Callbacks"
-            app:nullable="true" />
+            app:argType="com.example.tinderr.auth.Callbacks"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/accountRecoveryFragment"
-        android:name="com.example.tinderr.AccountRecoveryFragment"
+        android:name="com.example.tinderr.auth.AccountRecoveryFragment"
         android:label="AccountRecoveryFragment"
         app:startDestination="@id/action_accountRecoveryFragment_to_authEmail">
         <action
             android:id="@+id/action_accountRecoveryFragment_to_authEmail"
-            app:destination="@id/authEmail" />
+            app:destination="@id/authEmail"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/authEmail"
-        android:name="com.example.tinderr.AuthEmail"
+        android:name="com.example.tinderr.auth.AuthEmail"
         android:label="AuthEmail">
         <action
             android:id="@+id/action_authEmail_to_checkEmailFragment"
-            app:destination="@id/checkEmailFragment" />
+            app:destination="@id/checkEmailFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/checkEmailFragment"
@@ -68,14 +96,22 @@
         app:startDestination="@id/action_checkEmailFragment_to_authEmail">
         <action
             android:id="@+id/action_checkEmailFragment_to_authEmail"
-            app:destination="@id/authEmail" />
+            app:destination="@id/authEmail"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
         <action
             android:id="@+id/action_checkEmailFragment_to_authNumberFragment"
-            app:destination="@id/authNumberFragment" />
+            app:destination="@id/authNumberFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/otpFragment"
-        android:name="com.example.tinderr.OtpFragment"
+        android:name="com.example.tinderr.auth.OtpFragment"
         android:label="OtpFragment">
         <argument
             android:name="number"
@@ -84,7 +120,11 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_otpFragment_to_accessLocationFragment"
-            app:destination="@id/accessLocationFragment" />
+            app:destination="@id/accessLocationFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/accessLocationFragment"
@@ -92,7 +132,11 @@
         android:label="AccessLocationFragment">
         <action
             android:id="@+id/action_accessLocationFragment_to_dashboardFragment"
-            app:destination="@id/navigation2" />
+            app:destination="@id/navigation2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <navigation
         android:id="@+id/navigation2"
@@ -103,11 +147,19 @@
             android:label="DashboardFragment">
             <action
                 android:id="@+id/action_dashboardFragment_to_createMediaFragment2"
-                app:destination="@id/createMediaFragment" />
+                app:destination="@id/createMediaFragment"
+                app:enterAnim="@anim/enter_animation"
+                app:exitAnim="@anim/exit_animation"
+                app:popEnterAnim="@anim/enter_pop"
+                app:popExitAnim="@anim/exit_pop" />
         </fragment>
         <fragment
             android:id="@+id/createMediaFragment"
             android:name="com.example.tinderr.CreateMediaFragment"
             android:label="CreateMediaFragment" />
     </navigation>
+    <fragment
+        android:id="@+id/sampleFragment"
+        android:name="com.example.tinderr.SampleFragment"
+        android:label="SampleFragment" />
 </navigation>
