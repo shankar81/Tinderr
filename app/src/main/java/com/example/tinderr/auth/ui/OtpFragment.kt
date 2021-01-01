@@ -1,4 +1,4 @@
-package com.example.tinderr.auth
+package com.example.tinderr.auth.ui
 
 import android.os.Bundle
 import android.view.*

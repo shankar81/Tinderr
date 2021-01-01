@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import java.io.IOException
 
-class PhotoRepository(context: Context) {
+class ProtoRepository(context: Context) {
 
     private val dataStore: DataStore<UserInfo> =
         context.createDataStore("my_data", serializer = UserSerializer())
