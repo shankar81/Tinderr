@@ -4,9 +4,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
-    val retrofit = Retrofit
+    val retrofit: Retrofit = Retrofit
         .Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://172.20.160.1:8080")
+        .baseUrl("https://tinderr-ktor-api.herokuapp.com")
         .build()
 }

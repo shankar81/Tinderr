@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tinderr.LoaderFragment
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.auth.models.LoginBody
@@ -70,14 +71,22 @@ class AuthNumberFragment : Fragment(), Callbacks {
         }
 
         binding.button.setOnClickListener {
+            LoaderFragment.show()
             coroutineScope.launch(Dispatchers.IO) {
                 try {
                     val response = authViewModel.login(LoginBody(binding.editText.text.toString()))
+                    withContext(Dispatchers.Main) {
+                        LoaderFragment.hide()
+                    }
                     Log.d(TAG, "onStart: $response")
                 } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        LoaderFragment.hide()
+                    }
                     e.printStackTrace()
                 }
             }
+            Log.d(TAG, "onStart: AFTER COROUTINE SCOPE")
 //            val action =
 //                AuthNumberFragmentDirections.actionAuthNumberFragmentToOtpFragment(binding.editText.text.toString())
 //            findNavController().navigate(action)
