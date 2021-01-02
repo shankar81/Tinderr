@@ -1,7 +1,5 @@
 package com.example.tinderr.auth.ui
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -25,7 +23,6 @@ import java.io.Serializable
 
 
 private const val TAG = "AuthNumberFragment"
-private const val RESOLVE_HINT = 1
 
 interface Callbacks : Serializable {
     fun onSelectExt(countryCode: CountryCode)
@@ -82,26 +79,22 @@ class AuthNumberFragment : Fragment(), Callbacks {
         }
 
         binding.button.setOnClickListener {
-            val action =
-                AuthNumberFragmentDirections.actionAuthNumberFragmentToOtpFragment(
-                    binding.editText.text.toString()
-                )
-            LoaderFragment.show()
+
             coroutineScope.launch(Dispatchers.IO) {
                 try {
                     val response = authViewModel.login(LoginBody(binding.editText.text.toString()))
                     Log.d(TAG, "onStart: $response")
                     if (response.result == 1 && response.data != null) {
+                        val action =
+                            AuthNumberFragmentDirections.actionAuthNumberFragmentToOtpFragment(
+                                binding.editText.text.toString(), response.data.otp
+                            )
                         withContext(Dispatchers.Main) {
                             findNavController().navigate(action)
-                            LoaderFragment.hide()
                         }
                     }
                     Log.d(TAG, "onStart: $response")
                 } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        LoaderFragment.hide()
-                    }
                     e.printStackTrace()
                 }
             }
