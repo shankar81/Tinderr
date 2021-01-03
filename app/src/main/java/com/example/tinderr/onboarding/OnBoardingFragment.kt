@@ -10,16 +10,7 @@ import com.example.tinderr.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {
 
-    private val fragments = arrayListOf(
-        YourEmailFragment(),
-        FirstNameFragment(),
-        BirthdayFragment(),
-        SelectGenderFragment(),
-        SexualOrientationFragment(),
-        ShowMeFragment(),
-        MyUniversityFragment(),
-        PassionsFragment(),
-    )
+    private val fragments = arrayListOf<Fragment>()
 
     private var _binding: FragmentOnBoardingBinding? = null
 
@@ -34,13 +25,28 @@ class OnBoardingFragment : Fragment() {
         _binding = FragmentOnBoardingBinding.inflate(inflater)
 
         // Disable user scroll
-//        binding.viewPager.isUserInputEnabled = false
+        binding.viewPager.isUserInputEnabled = false
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fragments.addAll(
+            listOf(
+                YourEmailFragment(binding.viewPager, 0),
+                FirstNameFragment(binding.viewPager, 1),
+                BirthdayFragment(binding.viewPager, 2),
+                SelectGenderFragment(binding.viewPager, 3),
+                SexualOrientationFragment(binding.viewPager, 4),
+                ShowMeFragment(binding.viewPager, 5),
+                MyUniversityFragment(binding.viewPager, 6),
+                PassionsFragment(binding.viewPager, 7),
+            )
+        )
+    }
 
     private inner class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
         override fun getItemCount() = fragments.size

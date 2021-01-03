@@ -1,4 +1,4 @@
-package com.google.samples.smartlock.sms_verify
+package com.example.tinderr.auth
 
 import android.content.Context
 import android.content.ContextWrapper

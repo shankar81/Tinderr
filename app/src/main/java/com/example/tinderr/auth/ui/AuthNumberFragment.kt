@@ -10,14 +10,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.tinderr.LoaderFragment
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.auth.models.LoginBody
 import com.example.tinderr.databinding.FragmentAuthNumberBinding
 import com.example.tinderr.models.CountryCode
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.samples.smartlock.sms_verify.AppSignatureHelper
+import com.example.tinderr.auth.AppSignatureHelper
 import kotlinx.coroutines.*
 import java.io.Serializable
 
