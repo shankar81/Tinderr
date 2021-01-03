@@ -81,12 +81,6 @@ class OtpFragment : Fragment() {
         }
     }
 
-    /**
-     *
-     * Change this method
-     * Use array of EditText to handle backButton and keyPress effectively based on index
-     *
-     */
     private fun onOtpEntered(index: Int) {
         val prev = if (index > 0) otps[index - 1] else null
         val curr = otps[index]

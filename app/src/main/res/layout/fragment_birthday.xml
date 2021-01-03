@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:paddingHorizontal="20dp"
+    android:paddingTop="20dp">
 
     <include layout="@layout/back_button" />
 
@@ -30,9 +30,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:digits="1234567890/"
         android:autofillHints="false"
         android:backgroundTint="@color/white"
+        android:digits="1234567890/"
         android:hint="@string/birthday_placeholder"
         android:inputType="textNoSuggestions"
         android:letterSpacing="0.5"
@@ -64,6 +64,7 @@
         style="@style/Theme.RoundedButtonGradient"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:enabled="false"
         android:text="@string/continue_button"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -36,14 +36,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/woman"
             style="@style/Theme.RadioTextView"
             android:text="@string/select_gender_woman" />
 
         <TextView
+            android:id="@+id/man"
             style="@style/Theme.RadioTextView"
             android:text="@string/select_gender_man" />
 
         <TextView
+            android:id="@+id/everyone"
             style="@style/Theme.RadioTextView"
             android:layout_margin="0dp"
             android:text="@string/show_me_everyone" />

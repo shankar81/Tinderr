@@ -1,6 +1,8 @@
 package com.example.tinderr.onboarding
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.R
 import com.example.tinderr.Utils
+import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentSexualOrientationBinding
+import com.example.tinderr.databinding.OrientationListItemBinding
+
+private const val TAG = "SexualOrientationFragment"
 
 class SexualOrientationFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
 
@@ -33,6 +39,8 @@ class SexualOrientationFragment(val viewPager: ViewPager2, val position: Int) : 
         "Bicurious"
     )
     private val adapter = OrientationAdapter(orientations)
+
+    private val selectedOrientations = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,14 +63,43 @@ class SexualOrientationFragment(val viewPager: ViewPager2, val position: Int) : 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.button.setOnClickListener {
+            viewPager.setCurrentItem(position + 1, true)
+        }
+
+    }
+
     private inner class OrientationHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val orientationBinding = OrientationListItemBinding.bind(itemView)
         fun bind(label: String) {
-            (itemView as TextView).text = label
-            itemView.background = Utils.getResFromAttribute(
-                requireActivity(),
-                R.attr.selectableItemBackground,
-                resources
-            )
+            itemView.setOnClickListener {
+                when (selectedOrientations.firstOrNull { it == label }) {
+                    null -> {
+                        if (selectedOrientations.size < 3) {
+                            orientationBinding.check.visibility = View.VISIBLE
+                            orientationBinding.label.setTextColor(
+                                Utils.getColor(
+                                    resources,
+                                    R.color.pink_700
+                                )
+                            )
+                            selectedOrientations.add(label)
+                        }
+                    }
+                    else -> {
+                        orientationBinding.label.setTextColor(Color.parseColor("#555555"))
+                        orientationBinding.check.visibility = View.INVISIBLE
+                        selectedOrientations.remove(label)
+                    }
+                }
+                binding.button.updateButton(selectedOrientations.size != 0)
+            }
+
+            orientationBinding.label.text = label
         }
     }
 
@@ -71,7 +108,7 @@ class SexualOrientationFragment(val viewPager: ViewPager2, val position: Int) : 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrientationHolder {
             return OrientationHolder(
                 layoutInflater.inflate(
-                    android.R.layout.simple_list_item_1,
+                    R.layout.orientation_list_item,
                     parent,
                     false
                 )

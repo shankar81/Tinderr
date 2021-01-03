@@ -1,6 +1,7 @@
 package com.example.tinderr.onboarding
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentYourEmailBinding
+import java.util.*
 
 class YourEmailFragment(private val viewPager: ViewPager2, private val position: Int) : Fragment() {
 

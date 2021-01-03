@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tinderr.databinding.FragmentOnBoardingBinding
@@ -16,6 +17,12 @@ class OnBoardingFragment : Fragment() {
 
     private val binding
         get() = _binding!!
+
+    private val backButtonCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            binding.viewPager.setCurrentItem(binding.viewPager.currentItem - 1, true)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +41,9 @@ class OnBoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(backButtonCallback)
+
         fragments.addAll(
             listOf(
                 YourEmailFragment(binding.viewPager, 0),
@@ -46,6 +56,8 @@ class OnBoardingFragment : Fragment() {
                 PassionsFragment(binding.viewPager, 7),
             )
         )
+
+        binding.viewPager.offscreenPageLimit = fragments.size
     }
 
     private inner class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
