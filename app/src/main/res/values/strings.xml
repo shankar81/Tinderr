@@ -114,4 +114,30 @@
     <string name="birthday_placeholder">DD/MM/YY</string>
     <string name="birthday_desc">Your age will be public.</string>
 
+    <!-- Select Gender -->
+    <string name="select_gender_title">I am a</string>
+    <string name="select_gender_woman">Woman</string>
+    <string name="select_gender_man">Man</string>
+    <string name="select_gender_other">Other</string>
+    <string name="select_gender_checkbox">Show my gender on my profile</string>
+
+    <!-- Show Me -->
+    <string name="show_me_title">Show me</string>
+    <string name="show_me_everyone">Everyone</string>
+
+    <!-- My University Name -->
+    <string name="my_university_title">My <br /> university is</string>
+    <string name="my_university_placeholder">University name</string>
+    <string name="my_university_desc">This is how it will appear in Tinderr, and you will not able to change it</string>
+
+    <!-- Sexual Orientation -->
+    <string name="s_orientation_title">My sexual <br /> orientation is</string>
+    <string name="s_orientation_note">Select up to 3</string>
+    <string name="s_orientation_checkbox">Show my orientation on my profile</string>
+
+    <!-- Passions -->
+    <string name="passions_title">Passions</string>
+    <string name="passions_desc">Let everyone know what you\'re passionate about, by adding it to your profile</string>
+
+
 </resources>

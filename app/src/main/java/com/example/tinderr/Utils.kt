@@ -2,12 +2,16 @@ package com.example.tinderr
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.util.Patterns
+import android.util.TypedValue
 import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.models.CountryCode
@@ -332,5 +336,18 @@ object Utils {
             return Patterns.EMAIL_ADDRESS.matcher(s).matches()
         }
         return false
+    }
+
+    @JvmStatic
+    fun getResFromAttribute(activity: Activity, attr: Int, resources: Resources): Drawable? {
+        if (attr == 0)
+            return null
+        val typedValue = TypedValue()
+        activity.theme.resolveAttribute(attr, typedValue, true)
+        return ResourcesCompat.getDrawable(
+            resources,
+            typedValue.resourceId,
+            null
+        )
     }
 }

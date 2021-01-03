@@ -13,7 +13,12 @@ class OnBoardingFragment : Fragment() {
     private val fragments = arrayListOf(
         YourEmailFragment(),
         FirstNameFragment(),
-        BirthdayFragment()
+        BirthdayFragment(),
+        SelectGenderFragment(),
+        SexualOrientationFragment(),
+        ShowMeFragment(),
+        MyUniversityFragment(),
+        PassionsFragment(),
     )
 
     private var _binding: FragmentOnBoardingBinding? = null

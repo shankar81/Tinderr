@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColorLink">@color/white</item>
         <item name="fontFamily">@font/lato_regular</item>
+        <item name="colorOnSurface">#888</item>
     </style>
 
     <style name="Theme.RoundedButton" parent="Widget.AppCompat.Button">
@@ -113,4 +114,14 @@
         <item name="android:letterSpacing" tools:targetApi="lollipop">0.1</item>
     </style>
 
+    <style name="Theme.RadioTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/radio_textview</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#aaa</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
 </resources>
