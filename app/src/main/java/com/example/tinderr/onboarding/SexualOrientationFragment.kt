@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.R
 import com.example.tinderr.Utils
 import com.example.tinderr.databinding.FragmentSexualOrientationBinding
 
-class SexualOrientationFragment : Fragment() {
+class SexualOrientationFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
 
     private var _binding: FragmentSexualOrientationBinding? = null
 

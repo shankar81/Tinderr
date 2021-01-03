@@ -1,17 +1,22 @@
 package com.example.tinderr.onboarding
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.InputType
+import android.text.method.DigitsKeyListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentBirthdayBinding
+import com.redmadrobot.inputmask.MaskedTextChangedListener
+import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
 import java.util.*
 
-class BirthdayFragment : Fragment() {
+private const val TAG = "BirthdayFragment"
 
+class BirthdayFragment(private val viewPager: ViewPager2, private val position: Int) : Fragment() {
 
     private var _binding: FragmentBirthdayBinding? = null
 
@@ -31,67 +36,40 @@ class BirthdayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.editText.addTextChangedListener(object : TextWatcher {
+        binding.button.setOnClickListener {
+            viewPager.setCurrentItem(position + 1, true)
+        }
 
-            private var current = ""
-            private val ddMmYyyy = "DDMMYYYY"
-            private val cal = Calendar.getInstance()
+        binding.editText.inputType = InputType.TYPE_DATETIME_VARIATION_DATE
+        binding.editText.keyListener = DigitsKeyListener.getInstance("1234567890/")
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString() != current) {
-                    var clean = s.toString().replace("[^\\d.]|\\.".toRegex(), "")
-                    val cleanC = current.replace("[^\\d.]|\\.".toRegex(), "")
+        installOn(
+            binding.editText,
+            "[00]/[00]/[0000]",
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean,
+                    extractedValue: String,
+                    formattedValue: String
+                ) {
+                    if (maskFilled) {
+                        val cal = Calendar.getInstance()
+                        val day = extractedValue.substring(0, 2).toInt()
+                        val month = extractedValue.substring(2, 4).toInt()
+                        val year = extractedValue.substring(4, extractedValue.length).toInt()
 
-                    val cl = clean.length
-                    var sel = cl
-                    var i = 2
-                    while (i <= cl && i < 6) {
-                        sel++
-                        i += 2
-                    }
-                    //Fix for pressing delete next to a forward slash
-                    if (clean == cleanC) sel--
-
-                    if (clean.length < 8) {
-                        clean += ddMmYyyy.substring(clean.length)
+                        if (month in 1..12 && year <= cal.get(Calendar.YEAR)) {
+                            val maximumDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+                            binding.button.updateButton(day <= maximumDay)
+                        } else {
+                            binding.button.updateButton(false)
+                        }
                     } else {
-                        //This part makes sure that when we finish entering numbers
-                        //the date is correct, fixing it otherwise
-                        var day = Integer.parseInt(clean.substring(0, 2))
-                        var mon = Integer.parseInt(clean.substring(2, 4))
-                        var year = Integer.parseInt(clean.substring(4, 8))
-
-                        mon = if (mon < 1) 1 else if (mon > 12) 12 else mon
-                        cal.set(Calendar.MONTH, mon - 1)
-                        year = if (year < 1900) 1900 else if (year > 2100) 2100 else year
-                        cal.set(Calendar.YEAR, year)
-                        // ^ first set year for the line below to work correctly
-                        //with leap years - otherwise, date e.g. 29/02/2012
-                        //would be automatically corrected to 28/02/2012
-
-                        day = if (day > cal.getActualMaximum(Calendar.DATE)) cal.getActualMaximum(
-                            Calendar.DATE
-                        ) else day
-                        clean = String.format("%02d%02d%02d", day, mon, year)
+                        binding.button.updateButton(false)
                     }
-
-                    clean = String.format(
-                        "%s/%s/%s", clean.substring(0, 2),
-                        clean.substring(2, 4),
-                        clean.substring(4, 8)
-                    )
-
-                    sel = if (sel < 0) 0 else sel
-                    current = clean
-                    binding.editText.setText(current)
-                    binding.editText.setSelection(if (sel < current.count()) sel else current.count())
                 }
             }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+        )
     }
 
     override fun onDestroy() {

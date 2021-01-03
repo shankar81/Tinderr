@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:paddingHorizontal="20dp"
+    android:paddingTop="20dp">
 
     <include
         layout="@layout/back_button"
@@ -12,7 +13,6 @@
         tools:layout_editor_absoluteY="20dp" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,8 +22,7 @@
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
-        tools:viewBindingIgnore="true" />
+        app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -36,14 +35,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/woman"
             style="@style/Theme.RadioTextView"
             android:text="@string/select_gender_woman" />
 
         <TextView
+            android:id="@+id/man"
             style="@style/Theme.RadioTextView"
             android:text="@string/select_gender_man" />
 
         <TextView
+            android:id="@+id/other"
             style="@style/Theme.RadioTextView"
             android:layout_margin="0dp"
             android:text="@string/select_gender_other" />
@@ -57,8 +59,8 @@
         android:paddingStart="10dp"
         android:text="@string/select_gender_checkbox"
         android:textColor="#aaa"
-        app:buttonTint="@color/checkbox_tint"
         android:textSize="16sp"
+        app:buttonTint="@color/checkbox_tint"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +72,7 @@
         style="@style/Theme.RoundedButtonGradient"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:enabled="false"
         android:text="@string/continue_button"
         app:layout_constraintBottom_toBottomOf="parent"

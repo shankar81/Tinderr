@@ -1,20 +1,20 @@
 package com.example.tinderr.onboarding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.R
 import com.example.tinderr.databinding.FragmentPassionsBinding
 import com.example.tinderr.databinding.PassionListItemBinding
 
 private const val TAG = "PassionsFragment"
 
-class PassionsFragment : Fragment() {
+class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
 
     private var _binding: FragmentPassionsBinding? = null
     private val binding get() = _binding!!

@@ -1,23 +1,16 @@
 package com.example.tinderr
 
 import android.app.Activity
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
 import android.widget.Button
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.NavController
-import androidx.viewpager2.widget.ViewPager2
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.tinderr.models.CountryCode
-import com.google.android.material.tabs.TabLayout
-
-private const val TAG = "Utils"
 
 object Utils {
     fun getCountryCodes(): ArrayList<CountryCode> {
@@ -349,5 +342,24 @@ object Utils {
             typedValue.resourceId,
             null
         )
+    }
+
+    // Can use inline and reified to use <T> at runtime
+     fun replaceFragment(fg: Fragment, manager: FragmentManager): Fragment? {
+        val fragment = manager.findFragmentById(R.id.fragmentContainer)
+        if (fragment != fg) {
+            manager.beginTransaction()
+                .replace(R.id.fragmentContainer, fg)
+                .commit()
+        }
+        return fragment
+    }
+
+     fun getColor(resources: Resources, resId: Int): Int {
+        return ResourcesCompat.getColor(resources, resId, null)
+    }
+
+    fun getDrawable(resources: Resources, resId: Int): Drawable? {
+        return ResourcesCompat.getDrawable(resources, resId, null)
     }
 }

@@ -38,31 +38,21 @@ class ChatsFragment : Fragment() {
         fragment = childFragmentManager.findFragmentById(R.id.fragmentContainer)
 
         if (fragment == null) {
-            replaceFragment(messageFragment)
+            fragment = Utils.replaceFragment(messageFragment, childFragmentManager)
         }
 
         messageTab.setOnClickListener {
             val color = ResourcesCompat.getColor(resources, R.color.pink_700, null)
             messageTab.setTextColor(color)
             feedTab.setTextColor(Color.parseColor("#AAAAAA"))
-            replaceFragment(messageFragment)
+            fragment = Utils.replaceFragment(messageFragment, childFragmentManager)
         }
 
         feedTab.setOnClickListener {
             val color = ResourcesCompat.getColor(resources, R.color.pink_700, null)
             feedTab.setTextColor(color)
             messageTab.setTextColor(Color.parseColor("#AAAAAA"))
-            replaceFragment(feedFragment)
-        }
-    }
-
-    // Used inline and reified to use <T> at runtime
-    private fun replaceFragment(fg: Fragment) {
-        fragment = childFragmentManager.findFragmentById(R.id.fragmentContainer)
-        if (fragment != fg) {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, fg)
-                .commit()
+            fragment = Utils.replaceFragment(feedFragment, childFragmentManager)
         }
     }
 }
