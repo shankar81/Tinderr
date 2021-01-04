@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.example.tinderr.Utils
 import com.example.tinderr.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {
@@ -14,6 +17,7 @@ class OnBoardingFragment : Fragment() {
     private val fragments = arrayListOf<Fragment>()
 
     private var _binding: FragmentOnBoardingBinding? = null
+
 
     private val binding
         get() = _binding!!
@@ -42,8 +46,6 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(backButtonCallback)
-
         fragments.addAll(
             listOf(
                 YourEmailFragment(binding.viewPager, 0),
@@ -56,6 +58,21 @@ class OnBoardingFragment : Fragment() {
                 PassionsFragment(binding.viewPager, 7),
             )
         )
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val layoutParams = LinearLayout.LayoutParams(
+                    (binding.root.width / (fragments.size - 1)) * position,
+                    Utils.dpAsPixel(resources, 10),
+                )
+
+                binding.progress.layoutParams = layoutParams
+            }
+        })
+
+        requireActivity().onBackPressedDispatcher.addCallback(backButtonCallback)
 
         binding.viewPager.offscreenPageLimit = fragments.size
     }

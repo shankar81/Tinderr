@@ -138,6 +138,7 @@
     <!-- Passions -->
     <string name="passions_title">Passions</string>
     <string name="passions_desc">Let everyone know what you\'re passionate about, by adding it to your profile</string>
+    <string name="passions_button">Continue (%1$d/5)</string>
 
 
 </resources>

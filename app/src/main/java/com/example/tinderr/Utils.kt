@@ -345,7 +345,7 @@ object Utils {
     }
 
     // Can use inline and reified to use <T> at runtime
-     fun replaceFragment(fg: Fragment, manager: FragmentManager): Fragment? {
+    fun replaceFragment(fg: Fragment, manager: FragmentManager): Fragment? {
         val fragment = manager.findFragmentById(R.id.fragmentContainer)
         if (fragment != fg) {
             manager.beginTransaction()
@@ -355,11 +355,16 @@ object Utils {
         return fragment
     }
 
-     fun getColor(resources: Resources, resId: Int): Int {
+    fun getColor(resources: Resources, resId: Int): Int {
         return ResourcesCompat.getColor(resources, resId, null)
     }
 
     fun getDrawable(resources: Resources, resId: Int): Drawable? {
         return ResourcesCompat.getDrawable(resources, resId, null)
+    }
+
+    fun dpAsPixel(resources: Resources, pixel: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (pixel * scale + 0.5f).toInt()
     }
 }
