@@ -34,6 +34,8 @@ class MyUniversityFragment(val viewPager: ViewPager2, val position: Int) : Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Utils.viewPagerCallback(viewPager, position, binding.editText)
+
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -43,6 +45,7 @@ class MyUniversityFragment(val viewPager: ViewPager2, val position: Int) : Fragm
         })
 
         binding.button.setOnClickListener {
+            Utils.closeKeyboard(requireActivity())
             viewPager.setCurrentItem(position + 1, true)
         }
     }

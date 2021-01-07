@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.R
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
-import com.example.tinderr.databinding.FragmentSelectGenderBinding
 import com.example.tinderr.databinding.FragmentShowMeBinding
 
 class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
@@ -35,6 +34,8 @@ class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
         binding.button.setOnClickListener {
             viewPager.setCurrentItem(position + 1, true)

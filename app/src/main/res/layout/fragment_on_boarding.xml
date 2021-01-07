@@ -8,8 +8,20 @@
     <View
         android:id="@+id/progress"
         android:layout_width="0dp"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:background="@drawable/gradient" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@string/back"
+        android:focusable="true"
+        android:src="@drawable/icon_back" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

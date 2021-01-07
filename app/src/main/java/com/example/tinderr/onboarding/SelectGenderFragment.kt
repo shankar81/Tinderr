@@ -36,6 +36,7 @@ class SelectGenderFragment(private val viewPager: ViewPager2, private val positi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
         binding.button.setOnClickListener {
             viewPager.setCurrentItem(position + 1, true)

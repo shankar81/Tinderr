@@ -3,12 +3,15 @@ package com.example.tinderr.onboarding
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.DigitsKeyListener
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
+import com.example.tinderr.Utils.viewPagerCallback
 import com.example.tinderr.databinding.FragmentBirthdayBinding
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
@@ -35,8 +38,12 @@ class BirthdayFragment(private val viewPager: ViewPager2, private val position: 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated: ")
+
+        viewPagerCallback(viewPager, position, binding.editText)
 
         binding.button.setOnClickListener {
+            Utils.closeKeyboard(requireActivity())
             viewPager.setCurrentItem(position + 1, true)
         }
 

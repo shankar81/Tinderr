@@ -1,16 +1,27 @@
 package com.example.tinderr
 
 import android.app.Activity
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Handler
+import android.os.SystemClock
+import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.models.CountryCode
+
+private const val TAG = "Utils"
 
 object Utils {
     fun getCountryCodes(): ArrayList<CountryCode> {
@@ -366,5 +377,71 @@ object Utils {
     fun dpAsPixel(resources: Resources, pixel: Int): Int {
         val scale = resources.displayMetrics.density
         return (pixel * scale + 0.5f).toInt()
+    }
+
+    fun closeKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        view.clearFocus()
+    }
+
+    /**
+     * @param pager viewPager
+     * @param currentPosition currentPosition of viewPager
+     * @param view view to focus
+     * If the current screen at the @param currentPosition is visible show input
+     */
+    fun viewPagerCallback(
+        pager: ViewPager2,
+        currentPosition: Int,
+        view: View?,
+        activity: Activity? = null
+    ) {
+        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == currentPosition) {
+                    if (activity == null) {
+                        showKeyboard(view!!)
+                    } else {
+                        closeKeyboard(activity)
+                    }
+                }
+            }
+        })
+    }
+
+    fun showKeyboard(view: View) {
+        Handler().postDelayed({
+            view.dispatchTouchEvent(
+                MotionEvent.obtain(
+                    SystemClock.uptimeMillis(),
+                    SystemClock.uptimeMillis(),
+                    MotionEvent.ACTION_DOWN,
+                    0f,
+                    0f,
+                    0
+                )
+            )
+            view.dispatchTouchEvent(
+                MotionEvent.obtain(
+                    SystemClock.uptimeMillis(),
+                    SystemClock.uptimeMillis(),
+                    MotionEvent.ACTION_UP,
+                    0f,
+                    0f,
+                    0
+                )
+            )
+
+            view.requestFocus()
+            if (view is EditText) {
+                view.setSelection(view.text.length)
+            }
+        }, 100)
     }
 }

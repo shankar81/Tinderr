@@ -2,25 +2,21 @@ package com.example.tinderr.onboarding
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.R
 import com.example.tinderr.Utils
+import com.example.tinderr.Utils.closeKeyboard
 import com.example.tinderr.Utils.dpAsPixel
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentPassionsBinding
 import com.example.tinderr.databinding.PassionListItemBinding
-
-private const val TAG = "PassionsFragment"
 
 class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
 

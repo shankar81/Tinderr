@@ -18,12 +18,15 @@ class OnBoardingFragment : Fragment() {
 
     private var _binding: FragmentOnBoardingBinding? = null
 
-
     private val binding
         get() = _binding!!
 
     private val backButtonCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
+        override fun handleOnBackPressed() = goBack()
+    }
+
+    private fun goBack() {
+        if (binding.viewPager.currentItem > 0) {
             binding.viewPager.setCurrentItem(binding.viewPager.currentItem - 1, true)
         }
     }
@@ -46,6 +49,8 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backButton.setOnClickListener { goBack() }
+
         fragments.addAll(
             listOf(
                 YourEmailFragment(binding.viewPager, 0),
@@ -65,9 +70,8 @@ class OnBoardingFragment : Fragment() {
 
                 val layoutParams = LinearLayout.LayoutParams(
                     (binding.root.width / (fragments.size - 1)) * position,
-                    Utils.dpAsPixel(resources, 10),
+                    Utils.dpAsPixel(resources, 5),
                 )
-
                 binding.progress.layoutParams = layoutParams
             }
         })

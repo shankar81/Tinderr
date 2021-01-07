@@ -7,20 +7,17 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="20dp">
 
-    <include layout="@layout/back_button" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:text="@string/birthday_title"
         android:textColor="#555"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
         tools:viewBindingIgnore="true" />
 
     <EditText
