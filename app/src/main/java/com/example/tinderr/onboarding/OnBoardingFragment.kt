@@ -1,12 +1,14 @@
 package com.example.tinderr.onboarding
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.Utils
@@ -20,6 +22,8 @@ class OnBoardingFragment : Fragment() {
 
     private val binding
         get() = _binding!!
+
+    private lateinit var viewModel: OnBoardingViewModel
 
     private val backButtonCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() = goBack()
@@ -43,6 +47,8 @@ class OnBoardingFragment : Fragment() {
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
 
+        viewModel = ViewModelProviders.of(this).get(OnBoardingViewModel::class.java)
+
         return binding.root
     }
 
@@ -53,14 +59,14 @@ class OnBoardingFragment : Fragment() {
 
         fragments.addAll(
             listOf(
-                YourEmailFragment(binding.viewPager, 0),
-                FirstNameFragment(binding.viewPager, 1),
-                BirthdayFragment(binding.viewPager, 2),
-                SelectGenderFragment(binding.viewPager, 3),
-                SexualOrientationFragment(binding.viewPager, 4),
-                ShowMeFragment(binding.viewPager, 5),
-                MyUniversityFragment(binding.viewPager, 6),
-                PassionsFragment(binding.viewPager, 7),
+                YourEmailFragment(binding.viewPager, 0, viewModel),
+                FirstNameFragment(binding.viewPager, 1, viewModel),
+                BirthdayFragment(binding.viewPager, 2, viewModel),
+                SelectGenderFragment(binding.viewPager, 3, viewModel),
+                SexualOrientationFragment(binding.viewPager, 4, viewModel),
+                ShowMeFragment(binding.viewPager, 5, viewModel),
+                MyUniversityFragment(binding.viewPager, 6, viewModel),
+                PassionsFragment(binding.viewPager, 7, viewModel),
             )
         )
 

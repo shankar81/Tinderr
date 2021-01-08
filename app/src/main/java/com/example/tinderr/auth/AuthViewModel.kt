@@ -8,6 +8,7 @@ import com.example.tinderr.auth.models.VerifyOTPBody
 import com.example.tinderr.auth.models.VerifyOTPResponse
 import com.example.tinderr.auth.network.AuthAPI
 import com.example.tinderr.models.Response
+import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel : ViewModel() {
     var selectedExt = "IN +91"
@@ -16,7 +17,7 @@ class AuthViewModel : ViewModel() {
     suspend fun login(body: LoginBody) =
         RetrofitService.retrofit.create(AuthAPI::class.java).login(body)
 
-    fun verifyOTP(body: VerifyOTPBody) = liveData<Response<VerifyOTPResponse>> {
+    fun verifyOTP(body: VerifyOTPBody) = liveData<Response<VerifyOTPResponse>>(Dispatchers.IO) {
         try {
             val response = RetrofitService.retrofit.create(AuthAPI::class.java).verifyOTP(body)
             emit(response)

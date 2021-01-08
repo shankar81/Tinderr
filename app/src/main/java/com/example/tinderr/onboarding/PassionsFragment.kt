@@ -10,41 +10,31 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.tinderr.LoaderFragment
 import com.example.tinderr.R
 import com.example.tinderr.Utils
-import com.example.tinderr.Utils.closeKeyboard
 import com.example.tinderr.Utils.dpAsPixel
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentPassionsBinding
 import com.example.tinderr.databinding.PassionListItemBinding
+import com.example.tinderr.onboarding.models.Passion
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
+class PassionsFragment(
+    val viewPager: ViewPager2,
+    val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentPassionsBinding? = null
     private val binding get() = _binding!!
 
-    private val selectedPassions = arrayListOf<String>()
+    private val selectedPassions = arrayListOf<Int>()
 
-    private val passions = arrayListOf(
-        "Slam Poetry",
-        "Comedy",
-        "Bhangra",
-        "Disney",
-        "Cricket",
-        "Bollywood",
-        "Photography",
-        "Outdoors",
-        "VR room",
-        "Writer",
-        "Coffee",
-        "Blogging",
-        "Reading",
-        "Politics",
-        "Museum",
-        "Vegan",
-        "Cat Lover",
-        "Hoodie",
-    )
+    private val passions = arrayListOf<Passion>()
     private val adapter = PassionAdapter(passions)
 
     override fun onCreateView(
@@ -59,6 +49,24 @@ class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment(
         binding.recyclerView.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (viewModel.passions.isNotEmpty()) {
+            for (i in viewModel.passions.split(",")) {
+                selectedPassions.add(i.toInt())
+            }
+        }
+
+        LoaderFragment.show()
+        viewModel.getPassions().observe(viewLifecycleOwner, { res ->
+            if (res.data != null && res.result == 1) {
+                passions.addAll(res.data)
+            }
+            LoaderFragment.hide()
+        })
     }
 
     private inner class PassionHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -77,13 +85,13 @@ class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment(
 
             // 3 items in one row
             if (position < passions.size) {
-                binding.textView1.text = passions[position]
+                binding.textView1.text = passions[position].name
             }
             if (position + 1 < passions.size) {
-                binding.textView2.text = passions[position + 1]
+                binding.textView2.text = passions[position + 1].name
             }
             if (position + 2 < passions.size) {
-                binding.textView3.text = passions[position + 2]
+                binding.textView3.text = passions[position + 2].name
             }
         }
     }
@@ -92,15 +100,15 @@ class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment(
         val paddingHorizontal = dpAsPixel(resources, 15)
         val paddingVertical = dpAsPixel(resources, 10)
 
-        if (selectedPassions.firstOrNull { it == passions[position] } == null && selectedPassions.size <= 5) {
-            selectedPassions.add(passions[position])
+        if (selectedPassions.firstOrNull { it == passions[position].id } == null && selectedPassions.size <= 5) {
+            selectedPassions.add(passions[position].id)
 
             // Update UI
             textView.setTextColor(Utils.getColor(resources, R.color.pink_700))
             textView.background =
                 Utils.getDrawable(resources, R.drawable.radio_textview_primary)
         } else if (selectedPassions.size <= 5) {
-            selectedPassions.remove(passions[position])
+            selectedPassions.remove(passions[position].id)
 
             // Update UI
             textView.setTextColor(Color.parseColor("#aaaaaa"))
@@ -112,7 +120,7 @@ class PassionsFragment(val viewPager: ViewPager2, val position: Int) : Fragment(
         binding.button.updateButton(selectedPassions.size == 5)
     }
 
-    private inner class PassionAdapter(private val list: List<String>) :
+    private inner class PassionAdapter(private val list: List<Passion>) :
         RecyclerView.Adapter<PassionHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PassionHolder {
             return PassionHolder(

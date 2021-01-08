@@ -17,14 +17,18 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
 import java.util.*
 
-private const val TAG = "BirthdayFragment"
-
-class BirthdayFragment(private val viewPager: ViewPager2, private val position: Int) : Fragment() {
+class BirthdayFragment(
+    private val viewPager: ViewPager2,
+    private val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentBirthdayBinding? = null
 
     private val binding
         get() = _binding!!
+
+    private var selectedDOBTime = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +42,25 @@ class BirthdayFragment(private val viewPager: ViewPager2, private val position: 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ")
 
         viewPagerCallback(viewPager, position, binding.editText)
 
+        selectedDOBTime = Calendar.getInstance().apply {
+            timeInMillis = viewModel.dob
+
+            val d = get(Calendar.DAY_OF_MONTH).toString()
+            val m = if (get(Calendar.MONTH) < 10) "0" + get(Calendar.MONTH) else get(Calendar.MONTH)
+            val y = if (get(Calendar.YEAR) < 10) "0" + get(Calendar.YEAR) else get(Calendar.YEAR)
+            binding.editText.setText(
+                d + "" + m + "" + y
+            )
+        }.timeInMillis
+
+        binding.button.updateButton(viewModel.dob != 0L)
+
         binding.button.setOnClickListener {
             Utils.closeKeyboard(requireActivity())
+            viewModel.updateDob(selectedDOBTime)
             viewPager.setCurrentItem(position + 1, true)
         }
 
@@ -67,6 +84,12 @@ class BirthdayFragment(private val viewPager: ViewPager2, private val position: 
 
                         if (month in 1..12 && year <= cal.get(Calendar.YEAR)) {
                             val maximumDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+                            cal.apply {
+                                set(Calendar.MONTH, month)
+                                set(Calendar.YEAR, year)
+                                set(Calendar.DAY_OF_MONTH, day)
+                            }
+                            selectedDOBTime = cal.timeInMillis
                             binding.button.updateButton(day <= maximumDay)
                         } else {
                             binding.button.updateButton(false)

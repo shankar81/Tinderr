@@ -13,7 +13,11 @@ import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentSelectGenderBinding
 
-class SelectGenderFragment(private val viewPager: ViewPager2, private val position: Int) :
+class SelectGenderFragment(
+    private val viewPager: ViewPager2,
+    private val position: Int,
+    val viewModel: OnBoardingViewModel
+) :
     Fragment() {
 
     private var _binding: FragmentSelectGenderBinding? = null
@@ -38,7 +42,13 @@ class SelectGenderFragment(private val viewPager: ViewPager2, private val positi
 
         Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
+        selectedGender = viewModel.gender
+        binding.button.updateButton(selectedGender != null && selectedGender!!.isNotEmpty())
+
+        updateFromPrevAction()
+
         binding.button.setOnClickListener {
+            viewModel.updateGender(selectedGender ?: "")
             viewPager.setCurrentItem(position + 1, true)
         }
 
@@ -64,8 +74,36 @@ class SelectGenderFragment(private val viewPager: ViewPager2, private val positi
         }
     }
 
+    /**
+     * Check previous selected gender if available
+     */
+    private fun updateFromPrevAction() {
+        if (!selectedGender.isNullOrEmpty()) {
+            when (selectedGender) {
+                "Woman" -> {
+                    updatedSelected(binding.woman)
+
+                    updatedNonSelected(binding.man)
+                    updatedNonSelected(binding.other)
+                }
+                "Man" -> {
+                    updatedSelected(binding.man)
+
+                    updatedNonSelected(binding.woman)
+                    updatedNonSelected(binding.other)
+                }
+                "Other" -> {
+                    updatedSelected(binding.other)
+
+                    updatedNonSelected(binding.man)
+                    updatedNonSelected(binding.woman)
+                }
+            }
+        }
+    }
+
     private fun updatedSelected(textView: TextView) {
-        if (selectedGender == null) {
+        if (selectedGender.isNullOrEmpty()) {
             binding.button.updateButton(true)
         }
         selectedGender = textView.text.toString()

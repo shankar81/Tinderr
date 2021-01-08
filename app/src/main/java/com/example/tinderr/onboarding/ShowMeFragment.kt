@@ -2,6 +2,7 @@ package com.example.tinderr.onboarding
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,13 @@ import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentShowMeBinding
 
-class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
+private const val TAG = "ShowMeFragment"
+
+class ShowMeFragment(
+    val viewPager: ViewPager2,
+    val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentShowMeBinding? = null
 
@@ -37,7 +44,13 @@ class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() 
 
         Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
+        selectedGender = viewModel.showMe
+        binding.button.updateButton(selectedGender != null && selectedGender!!.isNotEmpty())
+
+        updateFromPrevAction()
+
         binding.button.setOnClickListener {
+            viewModel.updateShowMe(selectedGender ?: "")
             viewPager.setCurrentItem(position + 1, true)
         }
 
@@ -64,7 +77,7 @@ class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() 
     }
 
     private fun updatedSelected(textView: TextView) {
-        if (selectedGender == null) {
+        if (selectedGender.isNullOrEmpty()) {
             binding.button.updateButton(true)
         }
         selectedGender = textView.text.toString()
@@ -78,6 +91,35 @@ class ShowMeFragment(val viewPager: ViewPager2, val position: Int) : Fragment() 
         textView.setTextColor(Color.parseColor("#aaaaaa"))
         textView.background =
             Utils.getDrawable(resources, R.drawable.radio_textview)
+    }
+
+    /**
+     * Check previous selected gender if available
+     */
+    private fun updateFromPrevAction() {
+        Log.d(TAG, "updateFromPrevAction: $selectedGender")
+        if (!selectedGender.isNullOrEmpty()) {
+            when (selectedGender) {
+                "Woman" -> {
+                    updatedSelected(binding.woman)
+
+                    updatedNonSelected(binding.man)
+                    updatedNonSelected(binding.everyone)
+                }
+                "Man" -> {
+                    updatedSelected(binding.man)
+
+                    updatedNonSelected(binding.woman)
+                    updatedNonSelected(binding.everyone)
+                }
+                "Everyone" -> {
+                    updatedSelected(binding.everyone)
+
+                    updatedNonSelected(binding.man)
+                    updatedNonSelected(binding.woman)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

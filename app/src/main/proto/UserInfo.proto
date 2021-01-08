@@ -8,4 +8,13 @@ message UserInfo {
   string name = 2;
   string phone = 3;
   string token = 4;
+  string email = 5;
+  int64 dob = 6;
+  string gender = 7;
+  bool showGender = 8;
+  string orientations = 9;
+  bool showOrientation = 10;
+  string showMe = 11;
+  string university = 12;
+  string passions = 13;
 }

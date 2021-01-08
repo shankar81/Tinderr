@@ -8,13 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.tinderr.R
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
-import com.example.tinderr.databinding.FragmentFirstNameBinding
 import com.example.tinderr.databinding.FragmentMyUniversityBinding
 
-class MyUniversityFragment(val viewPager: ViewPager2, val position: Int) : Fragment() {
+class MyUniversityFragment(
+    val viewPager: ViewPager2,
+    val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentMyUniversityBinding? = null
 
@@ -35,7 +37,11 @@ class MyUniversityFragment(val viewPager: ViewPager2, val position: Int) : Fragm
         super.onViewCreated(view, savedInstanceState)
 
         Utils.viewPagerCallback(viewPager, position, binding.editText)
+        binding.editText.setText(viewModel.university)
 
+        binding.button.updateButton(binding.editText.text.toString().length > 2)
+
+        binding.editText.setText(viewModel.university)
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -46,6 +52,7 @@ class MyUniversityFragment(val viewPager: ViewPager2, val position: Int) : Fragm
 
         binding.button.setOnClickListener {
             Utils.closeKeyboard(requireActivity())
+            viewModel.updateUniversity(binding.editText.text.toString())
             viewPager.setCurrentItem(position + 1, true)
         }
     }

@@ -8,13 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.tinderr.R
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentFirstNameBinding
-import com.example.tinderr.databinding.FragmentOnBoardingBinding
 
-class FirstNameFragment(private val viewPager: ViewPager2, private val position: Int) : Fragment() {
+class FirstNameFragment(
+    private val viewPager: ViewPager2,
+    private val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentFirstNameBinding? = null
 
@@ -35,6 +37,10 @@ class FirstNameFragment(private val viewPager: ViewPager2, private val position:
         super.onViewCreated(view, savedInstanceState)
 
         Utils.viewPagerCallback(viewPager, position, binding.editText)
+        binding.editText.setText(viewModel.name)
+
+        binding.button.updateButton(binding.editText.text.toString().length > 2)
+
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -44,6 +50,7 @@ class FirstNameFragment(private val viewPager: ViewPager2, private val position:
         })
 
         binding.button.setOnClickListener {
+            viewModel.updateName(binding.editText.text.toString())
             viewPager.setCurrentItem(position + 1, true)
         }
     }

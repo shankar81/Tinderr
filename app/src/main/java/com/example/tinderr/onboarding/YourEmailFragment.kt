@@ -1,21 +1,23 @@
 package com.example.tinderr.onboarding
 
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.Utils
-import com.example.tinderr.Utils.showKeyboard
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentYourEmailBinding
-import java.util.*
 
-class YourEmailFragment(private val viewPager: ViewPager2, private val position: Int) : Fragment() {
+class YourEmailFragment(
+    private val viewPager: ViewPager2,
+    private val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentYourEmailBinding? = null
 
@@ -36,6 +38,9 @@ class YourEmailFragment(private val viewPager: ViewPager2, private val position:
         super.onViewCreated(view, savedInstanceState)
 
         Utils.viewPagerCallback(viewPager, position, binding.editText)
+        binding.editText.setText(viewModel.email)
+
+        binding.button.updateButton(Utils.isEmailValid(binding.editText.text.toString()))
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -46,6 +51,7 @@ class YourEmailFragment(private val viewPager: ViewPager2, private val position:
         })
 
         binding.button.setOnClickListener {
+            viewModel.updateEmail(binding.editText.text.toString())
             viewPager.setCurrentItem(position + 1, true)
         }
 
