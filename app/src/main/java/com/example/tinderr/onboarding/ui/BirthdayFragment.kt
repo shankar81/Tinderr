@@ -1,9 +1,8 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.DigitsKeyListener
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.Utils.viewPagerCallback
 import com.example.tinderr.databinding.FragmentBirthdayBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
 import java.util.*

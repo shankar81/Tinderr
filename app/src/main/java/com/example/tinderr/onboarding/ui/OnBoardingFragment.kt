@@ -1,7 +1,6 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.Utils
 import com.example.tinderr.databinding.FragmentOnBoardingBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 
 class OnBoardingFragment : Fragment() {
 

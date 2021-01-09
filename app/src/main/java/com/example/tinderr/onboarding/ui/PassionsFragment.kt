@@ -1,4 +1,4 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -17,11 +17,10 @@ import com.example.tinderr.Utils.dpAsPixel
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentPassionsBinding
 import com.example.tinderr.databinding.PassionListItemBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 import com.example.tinderr.onboarding.models.Passion
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
+private const val TAG = "PassionsFragment"
 
 class PassionsFragment(
     val viewPager: ViewPager2,
@@ -54,10 +53,8 @@ class PassionsFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (viewModel.passions.isNotEmpty()) {
-            for (i in viewModel.passions.split(",")) {
-                selectedPassions.add(i.toInt())
-            }
+        binding.button.setOnClickListener {
+            viewModel.updatePassions(selectedPassions.joinToString(","))
         }
 
         LoaderFragment.show()
@@ -100,18 +97,18 @@ class PassionsFragment(
         val paddingHorizontal = dpAsPixel(resources, 15)
         val paddingVertical = dpAsPixel(resources, 10)
 
-        if (selectedPassions.firstOrNull { it == passions[position].id } == null && selectedPassions.size <= 5) {
+        if (selectedPassions.firstOrNull { it == passions[position].id } == null && selectedPassions.size < 5) {
             selectedPassions.add(passions[position].id)
 
             // Update UI
             textView.setTextColor(Utils.getColor(resources, R.color.pink_700))
             textView.background =
                 Utils.getDrawable(resources, R.drawable.radio_textview_primary)
-        } else if (selectedPassions.size <= 5) {
+        } else if (selectedPassions.size > 0) {
             selectedPassions.remove(passions[position].id)
 
             // Update UI
-            textView.setTextColor(Color.parseColor("#aaaaaa"))
+            textView.setTextColor(Color.parseColor("#888888"))
             textView.background =
                 Utils.getDrawable(resources, R.drawable.radio_textview)
         }

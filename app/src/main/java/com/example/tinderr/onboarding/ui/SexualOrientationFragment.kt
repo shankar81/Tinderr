@@ -1,8 +1,7 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,8 @@ import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentSexualOrientationBinding
 import com.example.tinderr.databinding.OrientationListItemBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
+import com.example.tinderr.onboarding.models.Orientation
 
 private const val TAG = "SexualOrientationFragme"
 
@@ -31,15 +32,15 @@ class SexualOrientationFragment(
         get() = _binding!!
 
     private val orientations = arrayListOf(
-        "Straight",
-        "Gay",
-        "Lesbian",
-        "Asexual",
-        "Pansexial",
-        "Bisexual",
-        "Queer",
-        "Demisexual",
-        "Bicurious"
+        Orientation("Straight", false),
+        Orientation("Gay", false),
+        Orientation("Lesbian", false),
+        Orientation("Asexual", false),
+        Orientation("Pansexial", false),
+        Orientation("Bisexual", false),
+        Orientation("Queer", false),
+        Orientation("Demisexual", false),
+        Orientation("Bicurious", false)
     )
     private val adapter = OrientationAdapter(orientations)
 
@@ -62,6 +63,7 @@ class SexualOrientationFragment(
                 DividerItemDecoration.VERTICAL
             )
         )
+        binding.recyclerView.setHasFixedSize(true)
 
         return binding.root
     }
@@ -72,9 +74,11 @@ class SexualOrientationFragment(
         Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
         for (i in viewModel.orientation.split(",")) {
-            selectedOrientations.add(i.trim())
+            selectedOrientations.add(i)
+            orientations.firstOrNull { it.label == i }?.selected = true
         }
-        Log.d(TAG, "onViewCreated: ${viewModel.orientation} $selectedOrientations")
+        binding.button.updateButton(selectedOrientations.size != 0)
+
         binding.button.setOnClickListener {
             viewModel.updateOrientations(selectedOrientations.joinToString(","))
             viewPager.setCurrentItem(position + 1, true)
@@ -84,31 +88,23 @@ class SexualOrientationFragment(
 
     private inner class OrientationHolder(view: View) : RecyclerView.ViewHolder(view) {
         val orientationBinding = OrientationListItemBinding.bind(itemView)
-
-        fun bind(label: String) {
-            if (selectedOrientations.find { it == label } != null) {
-                orientationBinding.check.visibility = View.VISIBLE
-                orientationBinding.label.setTextColor(
-                    Utils.getColor(
-                        resources,
-                        R.color.pink_700
-                    )
-                )
-                selectedOrientations.add(label)
-            }
-
+        fun bind(orientation: Orientation) {
             itemView.setOnClickListener {
-                checkIfSelected(label, orientationBinding)
+                orientation.selected = !orientation.selected
+                checkIfSelected(orientation, orientationBinding)
             }
 
-            orientationBinding.label.text = label
+            orientationBinding.label.text = orientation.label
         }
     }
 
-    private fun checkIfSelected(label: String, orientationBinding: OrientationListItemBinding) {
-        when (selectedOrientations.firstOrNull { it == label }) {
-            null -> {
-                if (selectedOrientations.size <= 3) {
+    private fun checkIfSelected(
+        orientation: Orientation,
+        orientationBinding: OrientationListItemBinding
+    ) {
+        when (orientation.selected) {
+            true -> {
+                if (selectedOrientations.size < 3) {
                     orientationBinding.check.visibility = View.VISIBLE
                     orientationBinding.label.setTextColor(
                         Utils.getColor(
@@ -116,25 +112,25 @@ class SexualOrientationFragment(
                             R.color.pink_700
                         )
                     )
-                    selectedOrientations.add(label.trim())
+                    selectedOrientations.add(orientation.label)
                 }
             }
             else -> {
                 orientationBinding.label.setTextColor(Color.parseColor("#555555"))
                 orientationBinding.check.visibility = View.INVISIBLE
-                selectedOrientations.remove(label)
+                selectedOrientations.remove(orientation.label)
             }
 
         }
         binding.button.updateButton(selectedOrientations.size != 0)
     }
 
-    private inner class OrientationAdapter(private val list: List<String>) :
+    private inner class OrientationAdapter(private val list: List<Orientation>) :
         RecyclerView.Adapter<OrientationHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrientationHolder {
             return OrientationHolder(
                 layoutInflater.inflate(
-                    R.layout.orientation_list_item,
+                    if (viewType == 0) R.layout.orientation_list_item else R.layout.orientation_list_item_selected,
                     parent,
                     false
                 )
@@ -146,8 +142,15 @@ class SexualOrientationFragment(
         }
 
         override fun getItemCount() = list.size
-    }
 
+        override fun getItemViewType(position: Int): Int {
+            return if (list[position].selected) {
+                1
+            } else {
+                0
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

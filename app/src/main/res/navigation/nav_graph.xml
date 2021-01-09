@@ -163,6 +163,6 @@
     </navigation>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.tinderr.onboarding.OnBoardingFragment"
+        android:name="com.example.tinderr.onboarding.ui.OnBoardingFragment"
         android:label="OnBoardingFragment" />
 </navigation>

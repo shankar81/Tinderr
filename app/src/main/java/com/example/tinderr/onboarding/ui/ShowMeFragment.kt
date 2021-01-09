@@ -1,4 +1,4 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.example.tinderr.R
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentShowMeBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 
 private const val TAG = "ShowMeFragment"
 

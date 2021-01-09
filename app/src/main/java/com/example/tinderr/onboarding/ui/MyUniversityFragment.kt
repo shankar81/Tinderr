@@ -1,4 +1,4 @@
-package com.example.tinderr.onboarding
+package com.example.tinderr.onboarding.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.Utils
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentMyUniversityBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 
 class MyUniversityFragment(
     val viewPager: ViewPager2,

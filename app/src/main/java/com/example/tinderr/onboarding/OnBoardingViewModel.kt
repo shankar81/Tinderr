@@ -66,12 +66,10 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updatePhone(phone: String) = viewModelScope.launch {
         dataStoreRepo.updatePhone(phone)
-
     }
 
     fun updateToken(token: String) = viewModelScope.launch {
         dataStoreRepo.updateToken(token)
-
     }
 
     fun updateEmail(email: String) = viewModelScope.launch {
@@ -80,7 +78,6 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updateDob(dob: Long) = viewModelScope.launch {
         dataStoreRepo.updateDob(dob)
-
     }
 
     fun updateGender(gender: String) = viewModelScope.launch {
@@ -89,7 +86,6 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updateOrientations(orientation: String) = viewModelScope.launch {
         dataStoreRepo.updateOrientations(orientation)
-
     }
 
     fun updateShowMe(showMe: String) = viewModelScope.launch {
@@ -98,12 +94,10 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updateUniversity(university: String) = viewModelScope.launch {
         dataStoreRepo.updateUniversity(university)
-
     }
 
     fun updatePassions(passions: String) = viewModelScope.launch {
         dataStoreRepo.updatePassions(passions)
-
     }
 
 }
