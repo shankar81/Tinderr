@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tinderr.LoaderFragment
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.auth.models.LoginBody
@@ -78,7 +79,7 @@ class AuthNumberFragment : Fragment(), Callbacks {
         }
 
         binding.button.setOnClickListener {
-
+            LoaderFragment.show()
             coroutineScope.launch(Dispatchers.IO) {
                 try {
                     val response = authViewModel.login(LoginBody(binding.editText.text.toString()))
@@ -94,7 +95,11 @@ class AuthNumberFragment : Fragment(), Callbacks {
                     }
                     Log.d(TAG, "onStart: $response")
                 } catch (e: Exception) {
+                    Log.d(TAG, "Error: ${binding.editText.text}", e)
                     e.printStackTrace()
+                }
+                withContext(Dispatchers.Main) {
+                    LoaderFragment.hide()
                 }
             }
         }

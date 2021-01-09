@@ -1,16 +1,22 @@
 package com.example.tinderr.auth.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.tinderr.LoaderFragment
 import com.example.tinderr.R
 import com.example.tinderr.Utils.updateButton
+import com.example.tinderr.auth.AuthViewModel
+import com.example.tinderr.auth.models.VerifyOTPBody
+import com.example.tinderr.onboarding.OnBoardingViewModel
 
 private const val TAG = "OtpFragment"
 
@@ -28,12 +34,18 @@ class OtpFragment : Fragment() {
     private lateinit var otp5: EditText
     private lateinit var otp6: EditText
 
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var onBoardingViewModel: OnBoardingViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_otp, container, false)
+
+        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
+        onBoardingViewModel = ViewModelProviders.of(this).get(OnBoardingViewModel::class.java)
 
         phoneNumber = view.findViewById(R.id.phoneNumber)
         backButton = view.findViewById(R.id.backButton)
@@ -61,9 +73,7 @@ class OtpFragment : Fragment() {
         phoneNumber.text = args.number
 
         /**
-         *
          * Attaching touch listener for every otp EditText
-         *
          */
         otps.mapIndexed { index, _ ->
             if (index < otps.size) {
@@ -76,8 +86,21 @@ class OtpFragment : Fragment() {
         }
 
         button.setOnClickListener {
-            val action = OtpFragmentDirections.actionOtpFragmentToAccessLocationFragment()
-            findNavController().navigate(action)
+            LoaderFragment.show()
+            val otp = otps.joinToString("") { it.text.toString() }
+            authViewModel.verifyOTP(VerifyOTPBody(args.number, otp)).observe(
+                viewLifecycleOwner,
+                { response ->
+                    Log.d(TAG, "onStart: $response")
+                    if (response.result == 1 && response.data != null) {
+                        onBoardingViewModel.updatePhone(response.data.user.phone)
+                        onBoardingViewModel.updateToken(response.data.token)
+                        onBoardingViewModel.updateId(response.data.user.id)
+                    }
+                    LoaderFragment.hide()
+                    val action = OtpFragmentDirections.actionOtpFragmentToOnBoardingFragment()
+                    findNavController().navigate(action)
+                })
         }
     }
 

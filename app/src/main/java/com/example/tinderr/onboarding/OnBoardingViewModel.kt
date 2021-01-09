@@ -1,19 +1,15 @@
 package com.example.tinderr.onboarding
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.tinderr.RetrofitService
 import com.example.tinderr.datastore.ProtoRepository
 import com.example.tinderr.models.Response
-import com.example.tinderr.models.User
 import com.example.tinderr.onboarding.models.Passion
 import com.example.tinderr.onboarding.network.OnBoardingAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
-private const val TAG = "OnBoardingViewModel"
 
 class OnBoardingViewModel(application: Application) : AndroidViewModel(application) {
     var id = 0
@@ -30,9 +26,12 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
 
     private val dataStoreRepo = ProtoRepository(application)
 
-    private val user = dataStoreRepo.readProto
+     val user = dataStoreRepo.readProto
 
     init {
+        /**
+         * Fetch previously selected data from dataStore
+         */
         viewModelScope.launch {
             user.collect {
                 id = it.id
@@ -50,6 +49,9 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    /**
+     * Get Passions from server
+     */
     fun getPassions() = liveData<Response<List<Passion>>>(Dispatchers.IO) {
         try {
             val response = RetrofitService.retrofit.create(OnBoardingAPI::class.java).getPassions()
@@ -58,6 +60,10 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
             e.printStackTrace()
             emit(Response(null, "Some Error While getting Passions in OnBoardingViewModel", 0))
         }
+    }
+
+    fun updateId(id: Int) = viewModelScope.launch {
+        dataStoreRepo.updateId(id)
     }
 
     fun updateName(name: String) = viewModelScope.launch {

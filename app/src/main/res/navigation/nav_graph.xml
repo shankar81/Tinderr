@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -12,6 +11,13 @@
         <action
             android:id="@+id/action_splashFragment_to_authFragment"
             app:destination="@id/authFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
+        <action
+            android:id="@+id/action_splashFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
             app:enterAnim="@anim/enter_animation"
             app:exitAnim="@anim/exit_animation"
             app:popEnterAnim="@anim/enter_pop"
@@ -115,19 +121,13 @@
         android:label="OtpFragment">
         <argument
             android:name="number"
-            android:defaultValue="4564564566"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_otpFragment_to_accessLocationFragment"
-            app:destination="@id/accessLocationFragment"
-            app:enterAnim="@anim/enter_animation"
-            app:exitAnim="@anim/exit_animation"
-            app:popEnterAnim="@anim/enter_pop"
-            app:popExitAnim="@anim/exit_pop" />
+            app:argType="string" />
         <argument
             android:name="otp"
             app:argType="string" />
+        <action
+            android:id="@+id/action_otpFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/accessLocationFragment"
@@ -164,5 +164,9 @@
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.example.tinderr.onboarding.ui.OnBoardingFragment"
-        android:label="OnBoardingFragment" />
+        android:label="OnBoardingFragment">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_accessLocationFragment"
+            app:destination="@id/accessLocationFragment" />
+    </fragment>
 </navigation>

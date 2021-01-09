@@ -62,7 +62,8 @@ class ProtoRepository(context: Context) {
                 .build()
         }
     }
-    suspend fun updateGender(gender:String) {
+
+    suspend fun updateGender(gender: String) {
         dataStore.updateData {
             it.toBuilder()
                 .setGender(gender)
@@ -77,6 +78,7 @@ class ProtoRepository(context: Context) {
                 .build()
         }
     }
+
     suspend fun updateShowMe(showMe: String) {
         dataStore.updateData {
             it.toBuilder()
@@ -84,6 +86,7 @@ class ProtoRepository(context: Context) {
                 .build()
         }
     }
+
     suspend fun updateUniversity(university: String) {
         dataStore.updateData {
             it.toBuilder()
@@ -91,10 +94,19 @@ class ProtoRepository(context: Context) {
                 .build()
         }
     }
+
     suspend fun updatePassions(passions: String) {
         dataStore.updateData {
             it.toBuilder()
                 .setPassions(passions)
+                .build()
+        }
+    }
+
+    suspend fun updateId(id: Int) {
+        dataStore.updateData {
+            it.toBuilder()
+                .setId(id)
                 .build()
         }
     }
@@ -118,4 +130,5 @@ class ProtoRepository(context: Context) {
                 .build()
         }
     }
+
 }

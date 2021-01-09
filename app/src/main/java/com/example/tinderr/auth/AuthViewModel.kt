@@ -1,5 +1,6 @@
 package com.example.tinderr.auth
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.tinderr.RetrofitService
@@ -9,6 +10,8 @@ import com.example.tinderr.auth.models.VerifyOTPResponse
 import com.example.tinderr.auth.network.AuthAPI
 import com.example.tinderr.models.Response
 import kotlinx.coroutines.Dispatchers
+
+private const val TAG = "AuthViewModel"
 
 class AuthViewModel : ViewModel() {
     var selectedExt = "IN +91"
@@ -22,6 +25,8 @@ class AuthViewModel : ViewModel() {
             val response = RetrofitService.retrofit.create(AuthAPI::class.java).verifyOTP(body)
             emit(response)
         } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d(TAG, "verifyOTP: ", e)
             emit(Response(null, "Some Error Occurred (VerifyOTP)", 0))
         }
     }
