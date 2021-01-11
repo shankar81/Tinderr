@@ -3,16 +3,15 @@ package com.example.tinderr.auth.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tinderr.LoaderFragment
 import com.example.tinderr.R
+import com.example.tinderr.Utils.closeKeyboard
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.auth.models.VerifyOTPBody
@@ -86,6 +85,7 @@ class OtpFragment : Fragment() {
         }
 
         button.setOnClickListener {
+            closeKeyboard(requireActivity())
             LoaderFragment.show()
             val otp = otps.joinToString("") { it.text.toString() }
             authViewModel.verifyOTP(VerifyOTPBody(args.number, otp)).observe(
@@ -96,10 +96,30 @@ class OtpFragment : Fragment() {
                         onBoardingViewModel.updatePhone(response.data.user.phone)
                         onBoardingViewModel.updateToken(response.data.token)
                         onBoardingViewModel.updateId(response.data.user.id)
+
+                        onBoardingViewModel.user.asLiveData().observe(viewLifecycleOwner, {
+                            val action = when {
+                                response.data.oldUser -> {
+                                    OtpFragmentDirections.actionOtpFragmentToNavigation2()
+                                }
+                                it.passions.isNullOrEmpty() -> {
+                                    OtpFragmentDirections.actionOtpFragmentToOnBoardingFragment()
+                                }
+                                else -> {
+                                    OtpFragmentDirections.actionOtpFragmentToNavigation2()
+                                }
+                            }
+                            findNavController().navigate(action)
+                        })
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Wrong OTP",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                     LoaderFragment.hide()
-                    val action = OtpFragmentDirections.actionOtpFragmentToOnBoardingFragment()
-                    findNavController().navigate(action)
+
                 })
         }
     }

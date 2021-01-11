@@ -1,7 +1,10 @@
 package com.example.tinderr.models
 
+import com.google.gson.annotations.SerializedName
+
 data class User(
     val id: Int = 0,
+    val userId: Int = 0,
     val name: String = "",
     val phone: String = "",
     val token: String = "",
@@ -10,7 +13,7 @@ data class User(
     val gender: String = "",
     val showGender: Boolean = false,
     val orientations: String = "",
-    val showOrientation: Boolean = false,
+    val showOrientations: Boolean = false,
     val showMe: String = "",
     val university: String = "",
     val passions: String = "",

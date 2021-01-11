@@ -73,7 +73,7 @@ class SexualOrientationFragment(
 
         Utils.viewPagerCallback(viewPager, position, null, requireActivity())
 
-        for (i in viewModel.orientation.split(",")) {
+        for (i in viewModel.orientations.split(",")) {
             selectedOrientations.add(i)
             orientations.firstOrNull { it.label == i }?.selected = true
         }

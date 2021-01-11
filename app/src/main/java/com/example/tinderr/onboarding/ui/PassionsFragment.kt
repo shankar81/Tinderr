@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -54,7 +56,18 @@ class PassionsFragment(
         super.onViewCreated(view, savedInstanceState)
 
         binding.button.setOnClickListener {
+            LoaderFragment.show()
             viewModel.updatePassions(selectedPassions.joinToString(","))
+            viewModel.saveDetails(selectedPassions.joinToString(",")).observe(viewLifecycleOwner, { response ->
+                if (response.data != null && response.result == 1) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Successfully saved user details",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                LoaderFragment.hide()
+            })
         }
 
         LoaderFragment.show()

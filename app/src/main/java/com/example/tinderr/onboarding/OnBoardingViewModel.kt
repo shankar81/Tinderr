@@ -1,15 +1,19 @@
 package com.example.tinderr.onboarding
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.tinderr.RetrofitService
 import com.example.tinderr.datastore.ProtoRepository
 import com.example.tinderr.models.Response
+import com.example.tinderr.models.User
 import com.example.tinderr.onboarding.models.Passion
 import com.example.tinderr.onboarding.network.OnBoardingAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
+private const val TAG = "OnBoardingViewModel"
 
 class OnBoardingViewModel(application: Application) : AndroidViewModel(application) {
     var id = 0
@@ -19,14 +23,18 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
     var name = ""
     var dob: Long = 0
     var gender = ""
-    var orientation = ""
+    var orientations = ""
+    var showOrientations = false
+    var showGender = false
     var showMe = ""
     var university = ""
     var passions = ""
 
     private val dataStoreRepo = ProtoRepository(application)
 
-     val user = dataStoreRepo.readProto
+    val user = dataStoreRepo.readProto
+
+    private var userDetails: User? = null
 
     init {
         /**
@@ -41,7 +49,9 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
                 name = it.name
                 dob = it.dob
                 gender = it.gender
-                orientation = it.orientations
+                orientations = it.orientations
+                showOrientations = it.showOrientation
+                showGender = it.showGender
                 showMe = it.showMe
                 university = it.university
                 passions = it.passions
@@ -59,6 +69,38 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
         } catch (e: Exception) {
             e.printStackTrace()
             emit(Response(null, "Some Error While getting Passions in OnBoardingViewModel", 0))
+        }
+    }
+
+    /**
+     * Save userDetails to server
+     */
+    fun saveDetails(passions: String) = liveData<Response<User>> {
+        userDetails = User(
+            userId = id,
+            phone = phone,
+            token = token,
+            email = email,
+            name = name,
+            dob = dob,
+            gender = gender,
+            orientations = orientations,
+            showOrientations = showOrientations,
+            showGender = showGender,
+            showMe = showMe,
+            university = university,
+            passions = passions
+        )
+        try {
+            val response =
+                RetrofitService.retrofit.create(OnBoardingAPI::class.java)
+                    .saveUserDetails(userDetails!!, "Bearer $token")
+            Log.d(TAG, "saveDetails: $response")
+            emit(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d(TAG, "saveDetails: ", e)
+            emit(Response(null, "Error while saving userDetails in OnBoardingViewModel", 0))
         }
     }
 

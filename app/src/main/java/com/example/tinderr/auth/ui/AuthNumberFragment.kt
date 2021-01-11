@@ -1,16 +1,23 @@
 package com.example.tinderr.auth.ui
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tinderr.CHANNEL_ID
 import com.example.tinderr.LoaderFragment
+import com.example.tinderr.R
+import com.example.tinderr.Utils.showKeyboard
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.auth.models.LoginBody
@@ -21,14 +28,13 @@ import com.example.tinderr.auth.AppSignatureHelper
 import kotlinx.coroutines.*
 import java.io.Serializable
 
-
-private const val TAG = "AuthNumberFragment"
-
 interface Callbacks : Serializable {
     fun onSelectExt(countryCode: CountryCode)
 }
 
 class AuthNumberFragment : Fragment(), Callbacks {
+
+    private lateinit var notificationManager: NotificationManager
 
     private var _binding: FragmentAuthNumberBinding? = null
 
@@ -45,6 +51,9 @@ class AuthNumberFragment : Fragment(), Callbacks {
         savedInstanceState: Bundle?
     ): View {
 
+        notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         // Send this code to server
         val signatureHelper = AppSignatureHelper(context)
 
@@ -59,6 +68,8 @@ class AuthNumberFragment : Fragment(), Callbacks {
         super.onStart()
 
         startSMSRetriever()
+
+        showKeyboard(binding.editText)
 
         binding.extDropdown.setText(authViewModel.selectedExt)
         binding.button.updateButton(authViewModel.buttonEnabled)
@@ -83,8 +94,8 @@ class AuthNumberFragment : Fragment(), Callbacks {
             coroutineScope.launch(Dispatchers.IO) {
                 try {
                     val response = authViewModel.login(LoginBody(binding.editText.text.toString()))
-                    Log.d(TAG, "onStart: $response")
                     if (response.result == 1 && response.data != null) {
+                        showNotification(response.data.otp)
                         val action =
                             AuthNumberFragmentDirections.actionAuthNumberFragmentToOtpFragment(
                                 binding.editText.text.toString(), response.data.otp
@@ -93,9 +104,7 @@ class AuthNumberFragment : Fragment(), Callbacks {
                             findNavController().navigate(action)
                         }
                     }
-                    Log.d(TAG, "onStart: $response")
                 } catch (e: Exception) {
-                    Log.d(TAG, "Error: ${binding.editText.text}", e)
                     e.printStackTrace()
                 }
                 withContext(Dispatchers.Main) {
@@ -107,6 +116,17 @@ class AuthNumberFragment : Fragment(), Callbacks {
         binding.backButton.root.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun showNotification(otp: String) {
+        val notification = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setContentTitle("Tinderr OTP")
+            .setContentText("Your one time OTP is: $otp")
+            .setOnlyAlertOnce(true)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setAutoCancel(true)
+            .build()
+        notificationManager.notify(1, notification)
     }
 
     override fun onSelectExt(countryCode: CountryCode) {

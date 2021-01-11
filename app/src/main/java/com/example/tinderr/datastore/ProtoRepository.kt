@@ -114,7 +114,7 @@ class ProtoRepository(context: Context) {
     suspend fun updateValue(user: User) {
         dataStore.updateData {
             it.toBuilder()
-                .setId(user.id)
+                .setId(user.userId)
                 .setName(user.name)
                 .setPhone(user.phone)
                 .setToken(user.token)
@@ -123,7 +123,7 @@ class ProtoRepository(context: Context) {
                 .setGender(user.gender)
                 .setShowGender(user.showGender)
                 .setOrientations(user.name)
-                .setShowOrientation(user.showOrientation)
+                .setShowOrientation(user.showOrientations)
                 .setShowMe(user.showMe)
                 .setUniversity(user.university)
                 .setPassions(user.passions)
