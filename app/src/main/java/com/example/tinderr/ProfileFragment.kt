@@ -12,8 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 
-private const val TAG = "ProfileFragment"
-
 class ProfileFragment : Fragment() {
 
     private lateinit var profileImage: ImageView

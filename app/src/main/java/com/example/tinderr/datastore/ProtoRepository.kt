@@ -23,6 +23,10 @@ class ProtoRepository(context: Context) {
             }
         }
 
+    suspend fun clear() {
+        dataStore.updateData { it.toBuilder().clear().build() }
+    }
+
     suspend fun updateName(name: String) {
         dataStore.updateData {
             it.toBuilder()

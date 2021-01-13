@@ -54,6 +54,7 @@ class DashboardFragment : Fragment() {
 
         dashboardTabs = view.findViewById(R.id.dashboardTabs)
         dashboardViewPager = view.findViewById(R.id.dashboardViewPager)
+        dashboardViewPager.offscreenPageLimit = 4
 
         return view
     }

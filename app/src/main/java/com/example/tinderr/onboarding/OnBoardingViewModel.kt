@@ -104,6 +104,10 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun clear() = viewModelScope.launch {
+        dataStoreRepo.clear()
+    }
+
     fun updateId(id: Int) = viewModelScope.launch {
         dataStoreRepo.updateId(id)
     }

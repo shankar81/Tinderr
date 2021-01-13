@@ -26,8 +26,18 @@ class AuthViewModel : ViewModel() {
             emit(response)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.d(TAG, "verifyOTP: ", e)
             emit(Response(null, "Some Error Occurred (VerifyOTP)", 0))
+        }
+    }
+
+    fun verifyUser(token: String) = liveData<Response<VerifyOTPResponse>>(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.retrofit.create(AuthAPI::class.java).verify(token)
+            emit(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d(TAG, "verifyUser: ", e)
+            emit(Response(null, "Some Error Occurred (verifyUser)", 0))
         }
     }
 }

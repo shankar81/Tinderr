@@ -12,6 +12,6 @@ interface OnBoardingAPI {
     @POST("/userDetails")
     suspend fun saveUserDetails(
         @Body user: User,
-        @Header("Authorization") token:String,
+        @Header("Authorization") token: String,
     ): Response<User>
 }

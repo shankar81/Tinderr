@@ -24,7 +24,11 @@
             app:popExitAnim="@anim/exit_pop" />
         <action
             android:id="@+id/action_splashFragment_to_navigation2"
-            app:destination="@id/navigation2" />
+            app:destination="@id/navigation2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -130,10 +134,18 @@
             app:argType="string" />
         <action
             android:id="@+id/action_otpFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
+            app:destination="@id/onBoardingFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
         <action
             android:id="@+id/action_otpFragment_to_navigation2"
-            app:destination="@id/navigation2" />
+            app:destination="@id/navigation2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
     </fragment>
     <fragment
         android:id="@+id/accessLocationFragment"

@@ -2,7 +2,6 @@ package com.example.tinderr.auth.ui
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.tinderr.R
+import com.example.tinderr.auth.AuthViewModel
 import com.example.tinderr.onboarding.OnBoardingViewModel
-
-private const val TAG = "SplashFragment"
 
 class SplashFragment : Fragment() {
 
     private lateinit var onBoardingViewModel: OnBoardingViewModel
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +25,7 @@ class SplashFragment : Fragment() {
     ): View? {
 
         onBoardingViewModel = ViewModelProviders.of(this).get(OnBoardingViewModel::class.java)
+        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
@@ -33,19 +33,38 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Handler().postDelayed({
-            onBoardingViewModel.user.asLiveData().observe(viewLifecycleOwner, {
-                Log.d(TAG, "onViewCreated: $it")
-                if (it == null || it.token.isNullOrEmpty()) {
-                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToAuthFragment())
-                } else {
-                    if (it.passions.isNullOrEmpty()) {
-                        findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment())
-                    } else {
-                        findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToNavigation2())
-                    }
-                }
-            })
-        }, 3000)
+        /**
+         * Verify User from server by sending token
+         */
+        onBoardingViewModel.user.asLiveData().observe(viewLifecycleOwner, {
+            if (it == null || it.token.isNullOrEmpty()) {
+                /**
+                 * If userDetails OR token is null or empty
+                 */
+                onBoardingViewModel.clear()
+                Handler().postDelayed({
+                    findNavController().navigate(
+                        SplashFragmentDirections.actionSplashFragmentToAuthFragment()
+                    )
+                }, 2000)
+            } else {
+                authViewModel.verifyUser("Bearer ${it.token}")
+                    .observe(viewLifecycleOwner, { response ->
+                        if (response.result == 1 && response.data != null) {
+                            if (response.data.oldUser) {
+                                /**
+                                 * If user has filled all onBoarding details
+                                 */
+                                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToNavigation2())
+                            } else {
+                                /**
+                                 * If user has not filled all onBoarding details
+                                 */
+                                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment())
+                            }
+                        }
+                    })
+            }
+        })
     }
 }
