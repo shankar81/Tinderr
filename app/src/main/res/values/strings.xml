@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tinderr</string>
     <string name="or">OR</string>
+    <string name="ok">Okay</string>
     <string name="back" translatable="false">Back Button</string>
     <string name="continue_button" translatable="false">Continue</string>
 
@@ -140,5 +141,12 @@
     <string name="passions_desc">Let everyone know what you\'re passionate about, by adding it to your profile</string>
     <string name="passions_button">Continue (%1$d/5)</string>
 
+    <!-- Upload Image -->
+    <string name="upload_image_title">Add photos</string>
+    <string name="upload_image_desc">Add at least 2 photo to continue</string>
+
+    <!-- Access Dialog -->
+    <string name="access_title">Photo Access</string>
+    <string name="access_desc">To upload the photos from your device, Tinder needs to access your photos. Please tap "Allow" in the next step.</string>
 
 </resources>
