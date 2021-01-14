@@ -4,6 +4,8 @@
     <string name="ok">Okay</string>
     <string name="back" translatable="false">Back Button</string>
     <string name="continue_button" translatable="false">Continue</string>
+    <string name="camera">camera</string>
+    <string name="gallery">gallery</string>
 
     <!-- Splash -->
     <string name="splash_title">tinder</string>

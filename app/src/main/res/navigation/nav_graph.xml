@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/imageUploadFragment">
+    app:startDestination="@id/onBoardingFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -190,5 +190,17 @@
     <fragment
         android:id="@+id/imageUploadFragment"
         android:name="com.example.tinderr.onboarding.ui.ImageUploadFragment"
-        android:label="ImageUploadFragment" />
+        android:label="ImageUploadFragment">
+        <action
+            android:id="@+id/action_imageUploadFragment_to_imagePickerFragment"
+            app:destination="@id/imagePickerFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"
+            app:popEnterAnim="@anim/enter_pop"
+            app:popExitAnim="@anim/exit_pop" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagePickerFragment"
+        android:name="com.example.tinderr.ImagePickerFragment"
+        android:label="Select Source" />
 </navigation>

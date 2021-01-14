@@ -67,6 +67,7 @@ class OnBoardingFragment : Fragment() {
                 ShowMeFragment(binding.viewPager, 5, viewModel),
                 MyUniversityFragment(binding.viewPager, 6, viewModel),
                 PassionsFragment(binding.viewPager, 7, viewModel),
+                ImageUploadFragment(binding.viewPager, 8, viewModel),
             )
         )
 

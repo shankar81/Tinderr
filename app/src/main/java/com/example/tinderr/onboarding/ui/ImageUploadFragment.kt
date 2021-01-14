@@ -11,16 +11,23 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.tinderr.R
 import com.example.tinderr.databinding.FragmentImageUploadBinding
 import com.example.tinderr.databinding.ImageUploadPlaceholderBinding
+import com.example.tinderr.onboarding.OnBoardingViewModel
 
 private const val REQUEST_PERMISSIONS = 1
 
-class ImageUploadFragment : Fragment() {
+class ImageUploadFragment(
+    val viewPager: ViewPager2,
+    val position: Int,
+    val viewModel: OnBoardingViewModel
+) : Fragment() {
 
     private var _binding: FragmentImageUploadBinding? = null
 
@@ -87,6 +94,8 @@ class ImageUploadFragment : Fragment() {
                         }).start()
                 } else {
                     // TODO show options to pick image
+                    val action = ImageUploadFragmentDirections.actionImageUploadFragmentToImagePickerFragment()
+                    findNavController().navigate(action)
                 }
             }
         }
