@@ -186,21 +186,30 @@
         <action
             android:id="@+id/action_onBoardingFragment_to_accessLocationFragment"
             app:destination="@id/accessLocationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/imageUploadFragment"
-        android:name="com.example.tinderr.onboarding.ui.ImageUploadFragment"
-        android:label="ImageUploadFragment">
         <action
-            android:id="@+id/action_imageUploadFragment_to_imagePickerFragment"
-            app:destination="@id/imagePickerFragment"
-            app:enterAnim="@anim/enter_animation"
-            app:exitAnim="@anim/exit_animation"
-            app:popEnterAnim="@anim/enter_pop"
-            app:popExitAnim="@anim/exit_pop" />
+            android:id="@+id/action_onBoardingFragment_to_imagePickerFragment"
+            app:destination="@id/imagePickerFragment" />
     </fragment>
     <fragment
         android:id="@+id/imagePickerFragment"
         android:name="com.example.tinderr.ImagePickerFragment"
-        android:label="Select Source" />
+        android:label="Select Source" >
+        <action
+            android:id="@+id/action_imagePickerFragment_to_cameraPreviewFragment"
+            app:destination="@id/cameraPreviewFragment" />
+        <argument
+            android:name="callbacks"
+            app:argType="com.example.tinderr.onboarding.ui.Callbacks" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraPreviewFragment"
+        android:name="com.example.tinderr.CameraPreviewFragment"
+        android:label="CameraPreviewFragment" >
+        <action
+            android:id="@+id/action_cameraPreviewFragment_to_onBoardingFragment"
+            app:popUpTo="@id/onBoardingFragment" />
+        <argument
+            android:name="callbacks"
+            app:argType="com.example.tinderr.onboarding.ui.Callbacks" />
+    </fragment>
 </navigation>

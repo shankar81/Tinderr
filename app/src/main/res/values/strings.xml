@@ -151,4 +151,10 @@
     <string name="access_title">Photo Access</string>
     <string name="access_desc">To upload the photos from your device, Tinder needs to access your photos. Please tap "Allow" in the next step.</string>
 
+    <!-- Camera Preview -->
+    <string name="camera_capture_button">Capture</string>
+    <string name="camera_change_button">Change</string>
+    <string name="camera_close_button">Close</string>
+    <string name="camera_flash_button">Flash</string>
+
 </resources>

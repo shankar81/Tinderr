@@ -21,6 +21,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tinderr.models.CountryCode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
 
 private const val TAG = "Utils"
 
@@ -328,6 +331,21 @@ object Utils {
 
     fun notifyUser(context: Context, msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    suspend fun File.copyFileTo(destination: File) {
+        withContext(Dispatchers.IO) {
+            inputStream().use { inputStream ->
+                destination.outputStream().use { out ->
+                    val buffer = ByteArray(1024)
+                    var length = inputStream.read(buffer)
+                    while (length > 0) {
+                        out.write(buffer, 0, length)
+                        length = inputStream.read(buffer)
+                    }
+                }
+            }
+        }
     }
 
     // Update button style based on user actions
