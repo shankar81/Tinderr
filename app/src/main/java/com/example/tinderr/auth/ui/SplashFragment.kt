@@ -42,11 +42,9 @@ class SplashFragment : Fragment() {
                  * If userDetails OR token is null or empty
                  */
                 onBoardingViewModel.clear()
-                Handler().postDelayed({
-                    findNavController().navigate(
-                        SplashFragmentDirections.actionSplashFragmentToAuthFragment()
-                    )
-                }, 2000)
+                findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToAuthFragment()
+                )
             } else {
                 authViewModel.verifyUser("Bearer ${it.token}")
                     .observe(viewLifecycleOwner, { response ->

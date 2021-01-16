@@ -102,15 +102,7 @@ class CameraPreviewFragment : Fragment() {
         imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val msg = "Photo capture succeeded"
-
-                val photoName = photoFile.name
-                val externalDir = Environment.getExternalStorageDirectory()
-
-                val dest = File(externalDir, photoName)
-                coroutineScope.launch {
-                    photoFile.copyFileTo(dest)
-                }
-                args.callbacks.onImageUpload(dest)
+                args.callbacks.onImageUpload(photoFile)
                 notifyUser(requireContext(), msg)
                 Log.d(TAG, msg)
                 findNavController().popBackStack(R.id.onBoardingFragment, false)
@@ -123,15 +115,16 @@ class CameraPreviewFragment : Fragment() {
     }
 
     private fun getOutputDir(): File {
-        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-
-        return if (mediaDir != null && mediaDir.exists()) {
-            mediaDir
-        } else {
-            requireContext().filesDir
-        }
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) ?: requireContext().filesDir
+//        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
+//            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+//        }
+//
+//        return if (mediaDir != null && mediaDir.exists()) {
+//            mediaDir
+//        } else {
+//            requireContext().filesDir
+//        }
     }
 
     override fun onDestroy() {

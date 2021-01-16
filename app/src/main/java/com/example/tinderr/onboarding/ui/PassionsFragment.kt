@@ -60,6 +60,7 @@ class PassionsFragment(
             viewModel.updatePassions(selectedPassions.joinToString(","))
             viewModel.saveDetails(selectedPassions.joinToString(",")).observe(viewLifecycleOwner, { response ->
                 if (response.data != null && response.result == 1) {
+                    viewPager.setCurrentItem(position + 1, true)
                     Toast.makeText(
                         requireContext(),
                         "Successfully saved user details",

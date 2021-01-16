@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,13 +26,6 @@ import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentImageUploadBinding
 import com.example.tinderr.databinding.ImageUploadPlaceholderBinding
 import com.example.tinderr.onboarding.OnBoardingViewModel
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.default
-import id.zelory.compressor.constraint.destination
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.Serializable
 
@@ -110,10 +102,14 @@ class ImageUploadFragment(
                 Log.d(TAG, "onCreateView: $it")
                 if (response.data != null && response.result == 1) {
                     when (response.result) {
-                        1 -> notifyUser(requireContext(), "Images are uploaded successfully!! (${response.data.size} Size")
+                        1 -> {
+                            notifyUser(requireContext(), "Images are uploaded successfully!! (${response.data.size} Size")
+                            LoaderFragment.hide()
+                            val action = OnBoardingFragmentDirections.actionOnBoardingFragmentToAccessLocationFragment()
+                            findNavController().navigate(action)
+                        }
                         0 -> notifyUser(requireContext(), "Uploading failed!")
                     }
-                    LoaderFragment.hide()
                 }
             })
         }
@@ -191,6 +187,8 @@ class ImageUploadFragment(
     }
 
     override fun onImageUpload(file: File?) {
+        Log.d(TAG, "onImageUpload: $file")
+        Log.d(TAG, "onImageUpload: ${file?.path}")
         images.add(file)
     }
 
