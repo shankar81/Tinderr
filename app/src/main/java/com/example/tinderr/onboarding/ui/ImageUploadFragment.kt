@@ -5,25 +5,35 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.tinderr.LoaderFragment
 import com.example.tinderr.R
-import com.example.tinderr.Utils
+import com.example.tinderr.Utils.notifyUser
+import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentImageUploadBinding
 import com.example.tinderr.databinding.ImageUploadPlaceholderBinding
 import com.example.tinderr.onboarding.OnBoardingViewModel
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.default
+import id.zelory.compressor.constraint.destination
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.Serializable
 
@@ -38,6 +48,8 @@ interface Callbacks : Serializable {
     fun onImageUpload(file: File?)
 }
 
+private const val TAG = "ImageUploadFragment"
+
 class ImageUploadFragment(
     val viewPager: ViewPager2,
     val position: Int,
@@ -48,15 +60,9 @@ class ImageUploadFragment(
 
     private val binding get() = _binding!!
 
-    private val images = arrayListOf<File?>(
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-    )
+    private val images = arrayListOf<File?>()
     private val adapter = ImageAdapter(images)
+
     val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA,
@@ -96,6 +102,22 @@ class ImageUploadFragment(
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         binding.recyclerView.adapter = adapter
 
+        binding.button.updateButton(images.size > 1)
+
+        binding.button.setOnClickListener {
+            LoaderFragment.show()
+            viewModel.uploadImages(images).observe(viewLifecycleOwner, { response ->
+                Log.d(TAG, "onCreateView: $it")
+                if (response.data != null && response.result == 1) {
+                    when (response.result) {
+                        1 -> notifyUser(requireContext(), "Images are uploaded successfully!! (${response.data.size} Size")
+                        0 -> notifyUser(requireContext(), "Uploading failed!")
+                    }
+                    LoaderFragment.hide()
+                }
+            })
+        }
+
         return binding.root
     }
 
@@ -116,7 +138,6 @@ class ImageUploadFragment(
                             // Don't do anything, this will override the previous listener if any!
                         }).start()
                 } else {
-                    // TODO show options to pick image
                     val action = OnBoardingFragmentDirections.actionOnBoardingFragmentToImagePickerFragment(callbacks)
                     findNavController().navigate(action)
                 }
@@ -148,10 +169,12 @@ class ImageUploadFragment(
         }
 
         override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-            holder.bind(images[position])
+            if (position < images.size) {
+                holder.bind(images[position])
+            }
         }
 
-        override fun getItemCount() = images.size
+        override fun getItemCount() = 6
     }
 
     private fun checkPermission(permissions: Array<String>): Boolean {
@@ -168,7 +191,7 @@ class ImageUploadFragment(
     }
 
     override fun onImageUpload(file: File?) {
-        images[1] = file
+        images.add(file)
     }
 
     override fun onDestroy() {
