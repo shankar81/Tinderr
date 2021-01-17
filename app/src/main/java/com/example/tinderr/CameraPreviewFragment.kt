@@ -1,33 +1,25 @@
 package com.example.tinderr
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.CameraView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.tinderr.Utils.copyFileTo
 import com.example.tinderr.Utils.notifyUser
 import com.example.tinderr.databinding.FragmentCameraPreviewBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.ExecutorService
 
 private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
 private const val TAG = "CameraPreviewFragment"
@@ -42,36 +34,43 @@ class CameraPreviewFragment : Fragment() {
 
     private lateinit var outputDirectory: File
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private var cameraProvider: ProcessCameraProvider? = null
 
     private val args by navArgs<CameraPreviewFragmentArgs>()
+
+    private var front = true
+    private var flash = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCameraPreviewBinding.inflate(inflater, container, false)
 
-        startCamera()
+        startCamera(flash, front)
 
         return binding.root
     }
 
-    private fun startCamera() {
+    private fun startCamera(flash: Boolean, front: Boolean) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
+            cameraProvider = cameraProviderFuture.get()
 
             val preview = Preview.Builder().build().apply {
                 setSurfaceProvider(binding.cameraPreview.surfaceProvider)
             }
 
-            imageCapture = ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
+            Log.d(TAG, "startCamera: $flash $front")
+            imageCapture = ImageCapture.Builder()
+                .setFlashMode(if (flash) ImageCapture.FLASH_MODE_ON else ImageCapture.FLASH_MODE_OFF)
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .build()
 
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            val cameraSelector = if (front) CameraSelector.DEFAULT_FRONT_CAMERA else CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
-                cameraProvider.unbindAll()
+                cameraProvider?.unbindAll()
 
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+                cameraProvider?.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -81,6 +80,23 @@ class CameraPreviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.iconFlash.setOnClickListener {
+            flash = !flash
+            Log.d(TAG, "onViewCreated: $flash")
+            startCamera(flash, front)
+        }
+
+        binding.iconChange.setOnClickListener {
+            flash = false
+            front = !front
+            startCamera(flash, front)
+        }
+
+        binding.iconClose.setOnClickListener {
+            findNavController().popBackStack(R.id.onBoardingFragment, false)
+        }
+
         outputDirectory = getOutputDir()
 
         binding.captureImage.setOnClickListener {
