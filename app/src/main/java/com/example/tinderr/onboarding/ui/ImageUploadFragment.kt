@@ -3,15 +3,23 @@ package com.example.tinderr.onboarding.ui
 import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,13 +29,18 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.tinderr.LoaderFragment
 import com.example.tinderr.R
+import com.example.tinderr.Utils.getFileFromURI
 import com.example.tinderr.Utils.notifyUser
 import com.example.tinderr.Utils.updateButton
 import com.example.tinderr.databinding.FragmentImageUploadBinding
 import com.example.tinderr.databinding.ImageUploadPlaceholderBinding
 import com.example.tinderr.onboarding.OnBoardingViewModel
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val REQUEST_PERMISSIONS = 1
 
@@ -41,6 +54,7 @@ interface Callbacks : Serializable {
 }
 
 private const val TAG = "ImageUploadFragment"
+private const val GET_IMAGE = 1
 
 class ImageUploadFragment(
     val viewPager: ViewPager2,
@@ -134,8 +148,14 @@ class ImageUploadFragment(
                             // Don't do anything, this will override the previous listener if any!
                         }).start()
                 } else {
-                    val action = OnBoardingFragmentDirections.actionOnBoardingFragmentToImagePickerFragment(callbacks)
-                    findNavController().navigate(action)
+                    val intent = Intent().apply {
+                        type = "image/*"
+                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                        action = Intent.ACTION_GET_CONTENT
+                    }
+                    startActivityForResult(intent, GET_IMAGE)
+//                    val action = OnBoardingFragmentDirections.actionOnBoardingFragmentToImagePickerFragment(callbacks)
+//                    findNavController().navigate(action)
                 }
             }
         }
@@ -145,7 +165,7 @@ class ImageUploadFragment(
             Glide.with(requireContext())
                 .asBitmap()
                 .apply(requestBuilder)
-                .load(imageUrl)
+                .load(Uri.parse("/storage/emulated/0/DCIM/2021-01-17-21-42-46-160.jpg"))
                 .into(holderBinding.imageView)
         }
     }
@@ -187,9 +207,39 @@ class ImageUploadFragment(
     }
 
     override fun onImageUpload(file: File?) {
-        Log.d(TAG, "onImageUpload: $file")
-        Log.d(TAG, "onImageUpload: ${file?.path}")
         images.add(file)
+        Log.d(TAG, "onImageUpload: $images")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            GET_IMAGE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val clipData = data.clipData
+                    val intentData = data.data
+                    if (clipData != null) {
+                        /**
+                         * If multiple items are selected this code will be called
+                         */
+                        val count = if (clipData.itemCount > 6) 6 else clipData.itemCount
+                        for (i in 0 until count) {
+                            images.add(clipData.getItemAt(i).uri.getFileFromURI(requireContext()))
+                        }
+                    } else if (intentData != null) {
+                        /**
+                         * If single item is selected this code will be called
+                         */
+                        val file = intentData.getFileFromURI(requireContext())
+                        images.add(file)
+                    }
+                } else {
+                    Log.d(TAG, "onActivityResult RESULT is not OK OR DATA IS NULL")
+                }
+                Log.d(TAG, "onActivityResult $images")
+            }
+
+        }
     }
 
     override fun onDestroy() {

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Environment
 import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
@@ -24,8 +26,11 @@ import com.example.tinderr.models.CountryCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-private const val TAG = "Utils"
+private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
 
 object Utils {
     fun getCountryCodes(): ArrayList<CountryCode> {
@@ -331,6 +336,23 @@ object Utils {
 
     fun notifyUser(context: Context, msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Returns file from URI
+     * first it copies to another location and return that copied file
+     */
+     fun Uri.getFileFromURI(context: Context): File {
+        val outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) ?: context.filesDir
+        val outputFile = File(
+            outputDir, SimpleDateFormat(
+                FILENAME_FORMAT, Locale.US
+            ).format(System.currentTimeMillis()) + ".jpg"
+        )
+        context.contentResolver.openInputStream(this)?.copyTo(
+            outputFile.outputStream(), 1024
+        )
+        return outputFile
     }
 
     suspend fun File.copyFileTo(destination: File) {

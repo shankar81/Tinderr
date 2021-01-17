@@ -1,5 +1,6 @@
 package com.example.tinderr
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +20,24 @@ class ImagePickerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentImagePickerBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.cameraButton.setOnClickListener {
             val action = ImagePickerFragmentDirections.actionImagePickerFragmentToCameraPreviewFragment(args.callbacks)
             findNavController().navigate(action)
         }
-        return binding.root
+
+        binding.galleryButton.setOnClickListener {
+            val intent = Intent().apply {
+                type = "image/*"
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            }
+            startActivityForResult(Intent.createChooser(intent, "Select photos"), 1)
+        }
     }
 
     override fun onDestroy() {
