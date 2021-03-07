@@ -23,6 +23,7 @@ class AuthViewModel : ViewModel() {
     fun verifyOTP(body: VerifyOTPBody) = liveData<Response<VerifyOTPResponse>>(Dispatchers.IO) {
         try {
             val response = RetrofitService.retrofit.create(AuthAPI::class.java).verifyOTP(body)
+            Log.d(TAG, "verifyOTP: $response")
             emit(response)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -33,6 +34,7 @@ class AuthViewModel : ViewModel() {
     fun verifyUser(token: String) = liveData<Response<VerifyOTPResponse>>(Dispatchers.IO) {
         try {
             val response = RetrofitService.retrofit.create(AuthAPI::class.java).verify(token)
+            Log.d(TAG, "verifyUser: $response")
             emit(response)
         } catch (e: Exception) {
             e.printStackTrace()

@@ -59,7 +59,7 @@ class OnBoardingFragment : Fragment() {
 
         fragments.addAll(
             listOf(
-                ImageUploadFragment(binding.viewPager, 8, viewModel),
+//                ImageUploadFragment(binding.viewPager, 8, viewModel),
                 YourEmailFragment(binding.viewPager, 0, viewModel),
                 FirstNameFragment(binding.viewPager, 1, viewModel),
                 BirthdayFragment(binding.viewPager, 2, viewModel),
